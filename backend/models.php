@@ -1,5 +1,5 @@
 <?php
-    class Profile {
+    class User {
         public $firstName;
         public $lastName;
         public $email;

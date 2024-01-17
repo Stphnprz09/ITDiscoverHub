@@ -18,22 +18,27 @@
         return $isExists;
     }
 
-    function isUserExists($email, $password) {
+    function registerUser($firstName, $lastName, $email, $password) {
+        $result = insertNewUser($firstName, $lastName, $email, $password);
+        return $result;
+    }
+
+    function login($email, $password) {
         global $users;
-        $isExists = false;
+        $success = false;
 
         foreach ($users as $user) {
             if ($user->email === $email && $password === $password) {
-                $isExists = true;
+                $success = true;
+                session_start();
+                $_SESSION['email'] = $email;
+                $_SESSION['firstName'] = $user->firstName;
+                $_SESSION['lastName'] = $user->lastName;
+                header("Location: home.php");
                 break;
             }
         }
 
-        return $isExists;
-    }
-
-    function registerUser($firstName, $lastName, $email, $password) {
-        $result = insertNewUser($firstName, $lastName, $email, $password);
-        return $result;
+        return $success;
     }
 ?>

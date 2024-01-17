@@ -14,26 +14,22 @@
 
     function getAllUsers() {
         global $conn;
-        $stmt = $conn->prepare("SELECT `firstName`, `lastName`, `email`, `password` FROM user");
 
-        $result = $stmt->execute();
+        $sql = "SELECT `firstName`, `lastName`, `email`, `password` FROM user";
+        $result = $conn->query($sql);
 
         $users = [];
 
-        if ($result) {
-            
-            $stmt->bind_result($firstName, $lastName, $email, $password);
+        if ($result->num_rows > 0) {
 
-            while ($stmt->fetch()) {
-                $user = new Profile($firstName, $lastName, $email, $password);
+            while ($row = $result->fetch_assoc()) {
+                $user = new User($row['firstName'], $row['lastName'], $row['email'], $row['password']);
                 $users[] = $user;
             }
         } 
         else {
-            echo $stmt->error;
+            echo $conn->error;
         }
-
-        $stmt->close();
 
         return $users;
     }

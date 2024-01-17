@@ -1,3 +1,17 @@
+<?php
+session_start();
+// include_once 'db_connection.php';
+
+// // Check if the user is logged in
+// if (!isset($_SESSION['username'])) {
+//     header('Location: login.php');
+//     exit();
+// }
+
+// // Fetch user's notes
+// $username = $_SESSION['username'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,6 +32,7 @@
           <li><a href="">Catalog</a></li>
           <li><a href="">News</a></li>
           <li><a class="contact-us-link" href="">Contact us</a></li>
+          <li><a href="logout.php">Logout</a></li>
         </ul>
       </nav>
     </header>

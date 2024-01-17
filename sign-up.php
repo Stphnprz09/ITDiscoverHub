@@ -1,3 +1,25 @@
+<?php
+  include 'backend/models.php';
+  include 'backend/rules.php';
+
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $firstName = $_POST["Fname"];
+    $lastName = $_POST["Lname"];
+    $email = $_POST["emailAddress"];
+    $password = $_POST["password"];
+    
+    if (isEmailExists($email)) {
+      $error = "Username already exists.";
+    }
+    else {
+      $result = registerUser($firstName, $lastName, $email, $password);
+      if ($result) {
+        header("Location: home.html");
+      }
+      exit; 
+    }
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -45,6 +67,9 @@
               />
               <i class="bx bxs-envelope"></i><br />
             </div>
+            <?php if (isset($error)): ?>
+              <p style="color: red; margin-top: .5rem;"><?php echo $error; ?></p>
+            <?php endif; ?>
           </div>
 
           <div class="password-inputs">
@@ -83,28 +108,5 @@
         }
       }
     </script>
-    
-    <?php
-      include 'backend/models.php';
-      include 'backend/rules.php';
-
-      if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $firstName = $_POST["Fname"];
-        $lastName = $_POST["Lname"];
-        $email = $_POST["emailAddress"];
-        $password = (string) $_POST["password"];
-    
-        if (isEmailExists($email)) {
-          echo '<script> alert("Username already exists.") </script>';
-        }
-        else {
-          $result = registerUser($firstName, $lastName, $email, $password);
-          if ($result) {
-            header("Location: home.html");
-          }
-          exit; 
-        }
-      }
-    ?>
   </body>
 </html>
