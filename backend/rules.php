@@ -2,7 +2,8 @@
     include_once 'models.php';
     include_once 'sqlData.php';
 
-    $users = getAllUsers();
+    $users = getUsers();
+    $smartphones = getSmartphones();
 
     function isEmailExists($email) {
         global $users;
@@ -19,7 +20,7 @@
     }
 
     function registerUser($firstName, $lastName, $email, $password) {
-        $result = insertNewUser($firstName, $lastName, $email, $password);
+        $result = createNewUser($firstName, $lastName, $email, $password);
         return $result;
     }
 
@@ -40,5 +41,19 @@
         }
 
         return $success;
+    }
+
+    function getSmartphoneByModel($model) {
+        global $smartphones;
+        $foundSmartphone = null;
+
+        foreach ($smartphones as $smartphone) {
+            if ($smartphone->model == $model) {
+                $foundSmartphone = $smartphone;
+                break;
+            }
+        }
+
+        return $foundSmartphone;
     }
 ?>

@@ -1,0 +1,37 @@
+.product-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.product-img {
+  width: 50%;
+  border-radius: 20px;
+  box-shadow: 0 0 3px;
+  margin-bottom: 3rem;
+}
+
+table {
+  border: 2px solid white;
+  width: 80%;
+  border-collapse: separate;
+  border-spacing: 0.5rem;
+}
+
+th {
+  width: 15%;
+  padding: 1rem;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+td {
+  padding: 1rem;
+  margin: 0;
+}
+
+tr:not(:last-child) {
+  margin-bottom: 2rem;
+}
