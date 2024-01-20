@@ -2,14 +2,27 @@
     include_once 'backend/models.php';
     include_once 'backend/rules.php';
 
-    $userInput = $_GET['query']; // Assumes you're using GET method
-    $suggestions = [];
+    $searchIn = $_GET['searchIn'];
+    $searchFor = $_GET['searchFor'];
+    $searchWords = str_word_count($searchFor, 1);
+    $searchSuggestions = [];
 
-    foreach ($smartphones as $smartphone) {
-        if (stripos($smartphone->model, $userInput) !== false) {
-            $suggestions[] = $smartphone->model;
+    if ($searchIn == "smartphones") {
+        foreach ($smartphones as $smartphone) {
+            $containsAllWords = true;
+    
+            foreach ($searchWords as $word) {
+                if (stripos($smartphone->model, $word) === false) {
+                    $containsAllWords = false;
+                    break;
+                }
+            }
+    
+            if ($containsAllWords === true) {
+                $searchSuggestions[] = $smartphone->model;
+            }
         }
     }
 
-    echo json_encode($suggestions);
+    echo json_encode($searchSuggestions);
 ?>

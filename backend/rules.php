@@ -1,6 +1,6 @@
 <?php
     include_once 'models.php';
-    include_once 'sqlData.php';
+    include_once 'db_service.php';
 
     $users = getUsers();
     $smartphones = getSmartphones();
