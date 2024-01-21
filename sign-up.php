@@ -5,6 +5,7 @@
 
   // checks if the user is logged in, by checking if $_SESSION['isLoggedIn'] is set
   // if true, the user will be redirected to home.html
+  // this ensures that if the user is logged in, it does not sign-up
   if (isset($_SESSION['isLoggedIn'])) {
       header("Location: home.html");
   }
