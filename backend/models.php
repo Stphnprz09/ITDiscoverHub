@@ -1,4 +1,7 @@
 <?php
+    // this PHP files contains all data models
+    // uses class to represent the data models
+
     class User {
         public $firstName;
         public $lastName;
