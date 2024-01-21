@@ -1,21 +1,44 @@
 <?php
-  include 'backend/models.php';
   include 'backend/rules.php';
 
+  session_start();
+
+  // checks if the user is logged in, by checking if $_SESSION['isLoggedIn'] is set
+  // if true, the user will be redirected to home.html
+  if (isset($_SESSION['isLoggedIn'])) {
+      header("Location: home.html");
+  }
+
+  // if user signs up, that is submitted the sign up form
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // gets the values of first name, last name, email, and password from the submitted form
     $firstName = $_POST["Fname"];
     $lastName = $_POST["Lname"];
     $email = $_POST["emailAddress"];
     $password = $_POST["password"];
     
+    // checks if the email already exists in the database
+    // if true, the user will not be registered
     if (isEmailExists($email)) {
-      $error = "Username already exists.";
+      $error = "Username already exists.";  // this error is accessed in the html below
     }
+    // if the email is not yet used by other users in the database, will proceed to registering the user
+    // that is, create new user data in the database
     else {
+      // $result is a boolean, whether the registration is successful or not
       $result = registerUser($firstName, $lastName, $email, $password);
-      if ($result) {
+
+      // if true, the user is logged in;
+      // its information, such as email, first name, and last name is stored in the superglobal array $_SESSION;
+      // then redirected to home.html
+      if ($result) { 
+        $_SESSION['email'] = $email;
+        $_SESSION['firstName'] = $user->firstName;
+        $_SESSION['lastName'] = $user->lastName;
+        $_SESSION['isLoggedIn'] = true;
         header("Location: home.html");
       }
+      
       exit; 
     }
   }
@@ -67,6 +90,7 @@
               />
               <i class="bx bxs-envelope"></i><br />
             </div>
+            <!-- display the $error in the page using 'p' tag if $error is set, that is if email already exists -->
             <?php if (isset($error)): ?>
               <p style="color: red; margin-top: .5rem;"><?php echo $error; ?></p>
             <?php endif; ?>

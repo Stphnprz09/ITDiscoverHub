@@ -30,9 +30,9 @@ function getSearchSuggestions(searchContainer, searchInput, searchIn) {
     return;
   }
 
-  // fetches the data
+  // fetches the search suggestions data
   fetch(
-    "search-suggestions.php?searchIn=" +
+    "backend/search_suggestions_server.php?searchIn=" +
       searchIn +
       "&searchFor=" +
       searchInput.value
@@ -87,8 +87,8 @@ function getProduct(
     column = 2;
   }
 
-  // fetches the data
-  fetch("catalog-products.php?model=" + model)
+  // fetches the product data
+  fetch("backend/catalog_products_server.php?model=" + model)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);

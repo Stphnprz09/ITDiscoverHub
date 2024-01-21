@@ -181,19 +181,31 @@ header {
 
 main {
   max-width: 1600px;
-  margin-bottom: 5rem;
-  padding: 2rem 5rem 0;
-}
-
-main > section,
-footer > section {
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 3rem;
+  padding: 2rem 5rem;
 }
 
 h1 {
   margin-bottom: 2rem;
 }
+
+/* .h1-compare-btn-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.compare-btn {
+  display: block;
+  color: white;
+  background-color: #ee7214;
+  border: none;
+  inset: 0;
+  border-radius: 8px;
+  box-shadow: 0 0 2px;
+  padding: 0.6rem 1rem;
+} */
 
 .catalog-container {
   display: grid;
@@ -215,31 +227,32 @@ h1 {
   margin-bottom: 1.5rem;
 }
 
+.catalog-item-text {
+  margin-bottom: 1rem;
+}
+
 .catalog-item-text:hover {
   color: rgb(224, 220, 220);
 }
 
-.wishlist-btn-container {
-  display: flex;
-  justify-content: center;
-  margin-top: auto;
-}
-
 .wishlist-btn {
+  width: 80%;
   font-size: 0.9rem;
   color: white;
   background-color: transparent;
-  text-align: center;
-  margin: 1rem;
-  width: 80%;
   border: 1px solid white;
   inset: 0;
-  padding: 0.6rem 0;
   border-radius: 10px;
   box-shadow: 0 0 2px;
+  margin: auto auto 0;
+  padding: 0.6rem 0;
 }
 
 /* FOOTER */
+footer > section {
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .subscribe-section {
   max-width: 1600px;

@@ -4,7 +4,7 @@
     // both the servers and frontend uses this to get the data and logic they need
     // this is the only PHP file that uses db_service.php, which is a PHP file that directly connects and fetches data from the database
 
-    include_once 'db_service.php';  // imports db_service.php
+    include_once 'db_server.php';  // imports db_service.php
 
     $users = getUsers();    // gets the users data using getUsers() function from db_service.php
     $smartphones = getSmartphones();    // gets the smartphones data using getSmartphones() function from db_service.php
@@ -36,22 +36,23 @@
     }
 
     // this is used in login
-    // it checks if the user exists from the database, using the email and password parameters
-    function isUserExists($email, $password) {
+    // it returns a user data (User object) based on the email and password parameters
+    function getUser($email, $password) {
         global $users;  // accesses the global variable $users
-        $success = false;   // boolean that will be returned later, whether the email and password are valid credentials, that is, found in the $users data
+        $foundUser = null;   // will contain the user that will be returned
 
         foreach ($users as $user) {
             if ($user->email === $email && $user->password === $password) {
-                $success = true;
+                $foundUser = $user;
                 break;
             }
         }
 
-        return $success; 
+        return $foundUser; 
     }
 
     // gets a smartphone data by model parameter
+    // returns a Smartphone object
     function getSmartphoneByModel($model) {
         global $smartphones;    // accesses the global variable $smartphones
         $foundSmartphone = null;    // will contain the smartphone with model that matches the $model parameter

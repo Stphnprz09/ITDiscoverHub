@@ -1,14 +1,39 @@
 <?php
-    include 'backend/models.php';
+    // PHP for logging-in a user
+
     include 'backend/rules.php';
 
+    session_start();
+
+    // checks if the user is logged in, by checking if $_SESSION['isLoggedIn'] is set
+    // if true, the user will be redirected to home.html
+    if (isset($_SESSION['isLoggedIn'])) {
+        header("Location: home.html");
+    }
+
+    // if user logs in, that is submitted the login form
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // get the values of email and password from the submitted form
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $success = login($email, $password);
+        // gets the user data using getUser() function, wherein $email and $password are passed as parameters
+        // the functions returns a User object
+        $user = getUser($email, $password);
 
-        if (!$success) {
+        // if $user is not null, that is if exists, the user will be logged-in,
+        // and its information, such as email, first name, and last name will be stored in the superglobal array $_SESSION;
+        // then, the user will be redirected to home.html
+        if ($user !== null) {
+            $_SESSION['email'] = $email;
+            $_SESSION['firstName'] = $user->firstName;
+            $_SESSION['lastName'] = $user->lastName;
+            $_SESSION['isLoggedIn'] = true;
+            header("Location: home.html");
+
+            exit;
+        }
+        else {
             $error = "Invalid username or password.";
         }
     }

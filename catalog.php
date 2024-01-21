@@ -1,5 +1,4 @@
 <?php
-    include_once 'backend/models.php';
     include_once 'backend/rules.php';
 ?>
 
@@ -28,17 +27,19 @@
       </nav>
     </header>
     <main>
-        <h1>Smartphones</h1>
+        <!-- <div class="h1-compare-btn-container"> -->
+          <h1>Smartphones</h1>
+          <!-- <button class="compare-btn">Compare</button>
+        </div> -->
         <div class="catalog-container">
             <?php foreach ($smartphones as $smartphone) { ?> 
                 <div class="catalog-item-container">
+                    <!-- this 'a' tag goes to product-page.php and passes the model of the current $smartphone in loop as parameter -->
                     <a href="product-page.php?model=<?php echo $smartphone->model ?>">
                         <img class="catalog-item-img" src="images/catalog-images/smartphone1.jpg" alt="smartphone">
                         <p class="catalog-item-text"><?php echo $smartphone->model ?></p>
                     </a>
-                    <div class="wishlist-btn-container">
-                        <button class="wishlist-btn">Add to wishlist</button>
-                    </div>
+                    <button class="wishlist-btn">Add to wishlist</button>
                 </div>
             <?php } ?>  
         </div>

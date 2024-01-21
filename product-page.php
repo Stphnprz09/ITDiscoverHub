@@ -1,9 +1,7 @@
 <?php 
-    include_once 'backend/models.php';
     include_once 'backend/rules.php';
 
     $model = $_GET['model'];
-    $smartphone = getSmartphoneByModel($model);
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home | IT Discover Hub</title>
     <link rel="stylesheet" href="product-page.css" />
-    <link rel="stylesheet" href="catalog.css" />
     <link rel="stylesheet"
     href=https://fonts.googleapis.com/css?family=Poppins:300,400,700 />
   </head>
@@ -32,6 +29,7 @@
       </nav>
     </header>
     <main>
+      <?php $smartphone = getSmartphoneByModel($model); ?>
         <?php if (isset($smartphone)) { ?>
             <div class="product-container">
                 <h1><?php echo $smartphone->model ?></h1>
@@ -76,6 +74,7 @@
                 </table>
             </div>
         <?php } ?>
+      <button class="wishlist-btn">Add to wishlist</button>
     </main>
     <footer>
       <section class="subscribe-section">
