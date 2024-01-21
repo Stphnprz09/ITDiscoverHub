@@ -6,9 +6,10 @@
 
     include_once 'db_server.php';  // imports db_service.php
 
-    $users = getUsers();    // gets the users data using getUsers() function from db_service.php
-    $smartphones = getSmartphones();    // gets the smartphones data using getSmartphones() function from db_service.php
-
+    $users = getUsers();    // gets all the users data using getUsers() function from db_service.php
+    $smartphones = getSmartphones();    // gets all the smartphones data using getSmartphones() function from db_service.php
+    $laptops = getLaptops();    // gets all the laptops data using getLaptops() function from db_service.php
+    $tablets = getTablets();    // gets all the tablets data using getLaptops() function from db_service.php
 
     // this checks if the email from the parameter already exists
     // this is used when a user wants to register
@@ -65,5 +66,37 @@
         }
 
         return $foundSmartphone;
+    }
+
+    // gets a laptop data by model parameter
+    // returns a Laptop object
+    function getLaptopByModel($model) {
+        global $laptops;    // accesses the global variable $laptops
+        $foundLaptop = null;    // will contain the laptop with model that matches the $model parameter
+
+        foreach ($laptops as $laptop) {
+            if ($laptop->model == $model) {
+                $foundLaptop = $laptop;
+                break;
+            }
+        }
+
+        return $foundLaptop;
+    }
+
+    // gets a tablet data by model parameter
+    // returns a Tablet object
+    function getTabletByModel($model) {
+        global $tablets;    // accesses the global variable $tablets
+        $foundTablet = null;    // will contain the tablet with model that matches the $model parameter
+
+        foreach ($tablets as $tablet) {
+            if ($tablet->model == $model) {
+                $foundTablet = $tablet;
+                break;
+            }
+        }
+
+        return $foundTablet;
     }
 ?>

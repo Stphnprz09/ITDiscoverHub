@@ -1,3 +1,26 @@
+const urlParams = new URLSearchParams(window.location.search);
+const category = urlParams.get("category");
+
+const selectCategory = document.querySelector(".select-category");
+
+if (category) {
+  let selectCategoryOptions = selectCategory.querySelectorAll(
+    ".select-category option"
+  );
+
+  for (let i = 0; i < selectCategoryOptions.length; i++) {
+    if (selectCategoryOptions[i].value === category) {
+      selectCategoryOptions[i].selected = true;
+      break;
+    }
+  }
+}
+
+selectCategory.addEventListener("change", function () {
+  window.location.href =
+    "compare-products.php?category=" + selectCategory.value;
+});
+
 // get all the elements of search containers
 const searchContainers = document.getElementsByClassName("search-container");
 
@@ -8,14 +31,14 @@ for (let i = 0; i < searchContainers.length; i++) {
   let searchInput = searchContainers[i].querySelector(".search-input");
 
   searchInput.addEventListener("input", function () {
-    getSearchSuggestions(searchContainer, searchInput, "smartphones");
+    getSearchSuggestions(searchContainer, searchInput);
   });
 }
 
 // this gets and displays the search suggestions
 // it is called in the event listener for search suggestions
 // it fetches data from the PHP server every time a user inputs a letter in the search input
-function getSearchSuggestions(searchContainer, searchInput, searchIn) {
+function getSearchSuggestions(searchContainer, searchInput) {
   // where search suggestions will be displayed
   const searchSuggestionsContainer = searchContainer.querySelector(
     ".search-suggestions-container"
@@ -32,9 +55,9 @@ function getSearchSuggestions(searchContainer, searchInput, searchIn) {
 
   // fetches the search suggestions data
   fetch(
-    "backend/search_suggestions_server.php?searchIn=" +
-      searchIn +
-      "&searchFor=" +
+    "backend/search_suggestions_server.php?category=" +
+      category +
+      "&model=" +
       searchInput.value
   )
     .then((response) => response.json())
@@ -88,21 +111,37 @@ function getProduct(
   }
 
   // fetches the product data
-  fetch("backend/catalog_products_server.php?model=" + model)
+  fetch(
+    "backend/catalog_products_server.php?category=" +
+      category +
+      "&model=" +
+      model
+  )
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       document.getElementById("brand-col-" + column).innerText = data["brand"];
       document.getElementById("model-col-" + column).innerText = data["model"];
-      document.getElementById("screen-col-" + column).innerText =
-        data["screen"];
       document.getElementById("os-col-" + column).innerText = data["os"];
-      document.getElementById("chipset-col-" + column).innerText =
-        data["chipset"];
-      document.getElementById("GPU-col-" + column).innerText = data["GPU"];
+      if (category === "smartphones" || category === "tablets") {
+        document.getElementById("screen-col-" + column).innerText =
+          data["screen"];
+      }
+      if (category === "laptops" || category === "tablets") {
+        document.getElementById("processor-col-" + column).innerText =
+          data["processor"];
+      }
+      if (category === "smartphones") {
+        document.getElementById("chipset-col-" + column).innerText =
+          data["chipset"];
+        document.getElementById("GPU-col-" + column).innerText = data["GPU"];
+      }
       document.getElementById("RAM-col-" + column).innerText = data["RAM"];
       document.getElementById("storage-col-" + column).innerText =
         data["storage"];
+      if (category === "tablets") {
+        document.getElementById("battery-life-col-" + column).innerText =
+          data["batteryLife"];
+      }
       document.getElementById("price-col-" + column).innerText = data["price"];
 
       // clear search suggestions once data is fetched and displayed
@@ -114,22 +153,12 @@ function getProduct(
 }
 
 // this is so that when the user clicks outside the search input, the search suggestions will stop being displayed
-// but when the user clicks the search input again, the search suggestions will display again
 document.addEventListener("click", function (e) {
   let searchSuggestionsContainers = document.querySelectorAll(
     ".search-suggestions-container"
   );
 
-  if (
-    e.target.classList.contains("search-input") &&
-    e.target.value.trim() === ""
-  ) {
-    if (e.target.classList.contains("col-1")) {
-      searchSuggestionsContainers[0].style.display = "block";
-    } else if (e.target.classList.contains("col-2")) {
-      searchSuggestionsContainers[1].style.display = "block";
-    }
-  } else {
+  if (!e.target.classList.contains("search-input")) {
     for (let i = 0; i < searchSuggestionsContainers.length; i++) {
       searchSuggestionsContainers[i].style.display = "none";
     }

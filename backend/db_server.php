@@ -22,7 +22,7 @@
         $sql = "SELECT `firstName`, `lastName`, `email`, `password` FROM user";
         $result = $conn->query($sql);
 
-        $users = [];    // will be array of User class objects
+        $users = [];    // will be array of User objects
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -58,7 +58,7 @@
         $sql = "SELECT `brand`, `model`, `screen`, `os`, `chipset`, `GPU`, `RAM`, `storage`, `price` FROM tblsmartphone";
         $result = $conn->query($sql);
 
-        $smartphones = [];  // will be array of Smartphone class objects
+        $smartphones = [];  // will be array of Smartphone objects
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -72,5 +72,51 @@
         }
 
         return $smartphones;
+    }
+
+    // gets all the laptops data from the database
+    function getLaptops() {
+        global $conn;
+
+        $sql = "SELECT `brand`, `model`, `os`, `processor`, `RAM`, `storage`, `price` FROM tbllaptop";
+        $result = $conn->query($sql);
+
+        $laptops = [];  // will be array of Laptop objects
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // creates Laptop object from the result, then adds to the $laptops array that will be returned
+                $laptop = new Laptop($row['brand'], $row['model'], $row['os'], $row['processor'], $row['RAM'], $row['storage'], $row['price']);
+                $laptops[] = $laptop;
+            }
+        } 
+        else {
+            echo $conn->error;
+        }
+
+        return $laptops;
+    }
+
+    // gets all the tablets data from the database
+    function getTablets() {
+        global $conn;
+
+        $sql = "SELECT `brand`, `model`, `screen`, `processor`, `RAM`, `storage`, `batteryLife`, `os`, `price` FROM tbltablet";
+        $result = $conn->query($sql);
+
+        $tablets = [];  // will be array of Tablet objects
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // creates Tablet object from the result, then adds to the $tablets array that will be returned
+                $tablet = new Tablet($row['brand'], $row['model'], $row['screen'], $row['processor'], $row['RAM'], $row['storage'], $row['batteryLife'], $row['os'], $row['price']);
+                $tablets[] = $tablet;
+            }
+        } 
+        else {
+            echo $conn->error;
+        }
+
+        return $tablets;
     }
 ?>

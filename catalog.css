@@ -185,27 +185,27 @@ main {
   padding: 2rem 5rem;
 }
 
-h1 {
-  margin-bottom: 2rem;
-}
-
-/* .h1-compare-btn-container {
+.h1-compare-link-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
 }
 
-.compare-btn {
+h1 {
+  text-transform: capitalize;
+}
+
+.compare-link {
   display: block;
   color: white;
   background-color: #ee7214;
   border: none;
   inset: 0;
   border-radius: 8px;
-  box-shadow: 0 0 2px;
+  box-shadow: 0 0 2px #070320;
   padding: 0.6rem 1rem;
-} */
+}
 
 .catalog-container {
   display: grid;

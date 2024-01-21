@@ -1,40 +1,10 @@
-<?php
-    include_once 'backend/rules.php';
-
-    session_start();
-
-    $category = $_GET['category'];
-
-    if (!isset($category)) {
-      header("Location: catalog-main.php");
-    }
-
-    $catalogItems = [];
-    
-    if ($category == "smartphones") {
-      foreach ($smartphones as $smartphone) {
-        $catalogItems[] = $smartphone;
-      }
-    }
-    else if ($category == "laptops") {
-      foreach ($laptops as $laptop) {
-        $catalogItems[] = $laptop;
-      }
-    }
-    else if ($category == "tablets") {
-      foreach ($tablets as $tablet) {
-        $catalogItems[] = $tablet;
-      }
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home | IT Discover Hub</title>
-    <link rel="stylesheet" href="catalog.css" />
+    <link rel="stylesheet" href="catalog-main.css" />
     <link rel="stylesheet"
     href=https://fonts.googleapis.com/css?family=Poppins:300,400,700 />
   </head>
@@ -53,22 +23,65 @@
       </nav>
     </header>
     <main>
-        <div class="h1-compare-link-container">
-          <h1><?php echo $category ?></h1>
-          <a class="compare-link" href="compare-products.php?category=<?php echo $category ?>">Compare</a>
-        </div>
-              <div class="catalog-container">
-              <?php foreach ($catalogItems as $catalogItem) { ?> 
-                <div class="catalog-item-container">
-                    <!-- this 'a' tag goes to product-page.php and passes the model of the current $smartphone in loop as parameter -->
-                    <a href="product-page.php?category=<?php echo $category ?>&model=<?php echo $catalogItem->model ?>">
-                        <img class="catalog-item-img" src="images/catalog-images/laptop2.jpg" alt="">
-                        <p class="catalog-item-text"><?php echo $catalogItem->model ?></p>
-                    </a>
-                    <button class="wishlist-btn">Add to wishlist</button>
-                </div>
-              <?php } ?> 
-              </div>
+      <section class="section-catalog-categories with-bg">
+        <h2>
+          Upgrade your IT experience today – because when it comes to
+          technology, excellence starts here at IT Discover Hub.
+        </h2>
+        <p>
+          At IT Discover Hub, we understand the fast-paced nature of the tech
+          industry, and we're committed to keeping you at the forefront of
+          innovation. Stay updated on the newest releases, read insightful
+          reviews, and make informed decisions about your IT investments.
+        </p>
+        <nav class="nav-catalog-categories">
+          <div class="catalog-category">
+            <a class="category-link" href="catalog.php?category=smartphones">
+                <img
+                    class="category-icon"
+                    src="images/smartphone-icon.png"
+                    alt="smartphone icon"
+                />
+                <p>Smartphones</p>
+                <img
+                    class="arrow-icon"
+                    src="images/arrow-icon.png"
+                    alt="arrow icon"
+                />
+            </a>
+          </div>
+          <div class="catalog-category">
+            <a class="category-link" href="catalog.php?category=laptops">
+                <img
+                    class="category-icon"
+                    src="images/graphic-cards-icon.png"
+                    alt="laptop icon"
+                />
+                <p>Laptops</p>
+                <img
+                    class="arrow-icon"
+                    src="images/arrow-icon.png"
+                    alt="arrow icon"
+                />
+            </a>
+          </div>
+          <div class="catalog-category">
+            <a class="category-link" href="catalog.php?category=tablets">
+                <img
+                    class="category-icon"
+                    src="images/computer-icon.png"
+                    alt="tablet icon"
+                />
+                <p>Tablets</p>
+                <img
+                    class="arrow-icon"
+                    src="images/arrow-icon.png"
+                    alt="arrow icon"
+                />
+            </a>
+          </div>
+        </nav>
+      </section>
     </main>
     <footer>
       <section class="subscribe-section">
@@ -156,10 +169,5 @@
         </p>
       </section>
     </footer>
-    <script>
-      let isLoggedIn = <?php echo isset($_SESSION['isLoggedIn']) ? 'true' : 'false' ;?>;
-      let email = <?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'null' ;?>;
-    </script>
-    <script src="catalog.js"></script>
   </body>
 </html>

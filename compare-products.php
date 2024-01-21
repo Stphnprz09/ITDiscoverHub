@@ -1,3 +1,13 @@
+<?php
+    include_once 'backend/rules.php';
+
+    $category = $_GET['category'];
+
+    if (!isset($category)) {
+      header("Location: catalog-main.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,100 +34,116 @@
     </header>
     <main>
       <h1>Compare Products</h1>
-      <section class="table-container">
-        <!-- <select id="search-in" name="searchIn" id="">
+        <select class="select-category" name="select-category" id="">
           <option value="smartphones">Smartphones</option>
           <option value="tablets">Tablets</option>
           <option value="laptops">Laptops</option>
-        </select> -->
-        <table border="1">
-          <tr>
-            <th></th>
-            <td class="search-col">
-              <p class="text-align-center">Compare with:</p>
-              <div class="search-container">
-                <input class="search-input col-1" type="text"
-                autocomplete="off"">
-                <div class="search-suggestions-container">
-                  <ul class="search-suggestions col-1"></ul>
+        </select>
+          <table border="1">
+            <tr>
+              <th></th>
+              <td class="search-col">
+                <p class="text-align-center">Compare with:</p>
+                <div class="search-container">
+                  <input class="search-input col-1" type="text"
+                  autocomplete="off"">
+                  <div class="search-suggestions-container">
+                    <ul class="search-suggestions col-1"></ul>
+                  </div>
                 </div>
-              </div>
-            </td>
-            <td class="search-col">
-              <p class="text-align-center">Compare with:</p>
-              <div class="search-container">
-                <input
-                  class="search-input col-2"
-                  type="text"
-                  autocomplete="off"
-                />
-                <div class="search-suggestions-container">
-                  <ul class="search-suggestions col-2"></ul>
+              </td>
+              <td class="search-col">
+                <p class="text-align-center">Compare with:</p>
+                <div class="search-container">
+                  <input
+                    class="search-input col-2"
+                    type="text"
+                    autocomplete="off"
+                  />
+                  <div class="search-suggestions-container">
+                    <ul class="search-suggestions col-2"></ul>
+                  </div>
                 </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th></th>
-            <td id="img-col-1">
-              <img src="" alt="" />
-            </td>
-            <td id="img-col-2">
-              <img src="" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <th>Brand</th>
-            <td id="brand-col-1"></td>
-            <td id="brand-col-2"></td>
-          </tr>
-          <tr>
-            <th>Model</th>
-            <td id="model-col-1"></td>
-            <td id="model-col-2"></td>
-          </tr>
-          <tr>
-            <th>Screen</th>
-            <td id="screen-col-1"></td>
-            <td id="screen-col-2"></td>
-          </tr>
-          <tr>
-            <th>OS</th>
-            <td id="os-col-1"></td>
-            <td id="os-col-2"></td>
-          </tr>
-          <tr>
-            <th>Chipset</th>
-            <td id="chipset-col-1"></td>
-            <td id="chipset-col-2"></td>
-          </tr>
-          <tr>
-            <th>GPU</th>
-            <td id="GPU-col-1"></td>
-            <td id="GPU-col-2"></td>
-          </tr>
-          <tr>
-            <th>RAM</th>
-            <td id="RAM-col-1"></td>
-            <td id="RAM-col-2"></td>
-          </tr>
-          <tr>
-            <th>Storage</th>
-            <td id="storage-col-1"></td>
-            <td id="storage-col-2"></td>
-          </tr>
-          <tr>
-            <th>Price</th>
-            <td id="price-col-1"></td>
-            <td id="price-col-2"></td>
-          </tr>
-          <tr>
-            <th></th>
-            <td><button class="wishlist-btn col-1">Add to wishlist</button></td>
-            <td><button class="wishlist-btn col-2">Add to wishlist</button></td>
-          </tr>
-        </table>
-      </section>
+              </td>
+            </tr>
+            <tr>
+              <th></th>
+              <td id="img-col-1">
+                <img src="" alt="" />
+              </td>
+              <td id="img-col-2">
+                <img src="" alt="" />
+              </td>
+            </tr>
+            <tr>
+              <th>Brand</th>
+              <td id="brand-col-1"></td>
+              <td id="brand-col-2"></td>
+            </tr>
+            <tr>
+              <th>Model</th>
+              <td id="model-col-1"></td>
+              <td id="model-col-2"></td>
+            </tr>
+            <tr>
+              <th>OS</th>
+              <td id="os-col-1"></td>
+              <td id="os-col-2"></td>
+            </tr>
+            <?php  if ($category === "smartphones" || $category === "tablets") {  ?>
+              <tr>
+                <th>Screen</th>
+                <td id="screen-col-1"></td>
+                <td id="screen-col-2"></td>
+              </tr>
+            <?php } ?>
+            <?php  if ($category === "laptops" || $category === "tablets") {  ?>
+              <tr>
+                <th>Processor</th>
+                <td id="processor-col-1"></td>
+                <td id="processor-col-2"></td>
+              </tr>
+            <?php } ?>
+            <?php  if ($category === "smartphones") {  ?>
+              <tr>
+                <th>Chipset</th>
+                <td id="chipset-col-1"></td>
+                <td id="chipset-col-2"></td>
+              </tr>
+              <tr>
+                <th>GPU</th>
+                <td id="GPU-col-1"></td>
+                <td id="GPU-col-2"></td>
+              </tr>
+            <?php } ?>
+            <tr>
+              <th>RAM</th>
+              <td id="RAM-col-1"></td>
+              <td id="RAM-col-2"></td>
+            </tr>
+            <tr>
+              <th>Storage</th>
+              <td id="storage-col-1"></td>
+              <td id="storage-col-2"></td>
+            </tr>
+            <?php  if ($category === "tablets") {  ?>
+              <tr>
+                <th>Battery Life</th>
+                <td id="battery-life-col-1"></td>
+                <td id="battery-life-col-2"></td>
+              </tr>
+            <?php } ?>
+            <tr>
+              <th>Price</th>
+              <td id="price-col-1"></td>
+              <td id="price-col-2"></td>
+            </tr>
+            <tr>
+              <th></th>
+              <td><button class="wishlist-btn col-1">Add to wishlist</button></td>
+              <td><button class="wishlist-btn col-2">Add to wishlist</button></td>
+            </tr>
+          </table>
     </main>
     <footer>
       <section class="subscribe-section">
