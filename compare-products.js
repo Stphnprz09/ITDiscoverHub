@@ -1,12 +1,8 @@
-// let searchIn = document.getElementById("search-in");
-// searchIn.addEventListener("change", function () {
-//   // searchIn = searchIn.value;
-//   console.log(searchIn.value);
-// });
+// get all the elements of search containers
+const searchContainers = document.getElementsByClassName("search-container");
 
-const searchContainers = document.querySelectorAll(
-  ".compare-products-container .search-container"
-);
+// adds 'input' event listener to search inputs
+// whenever user types a letter in the search input, it will generate search suggestions
 for (let i = 0; i < searchContainers.length; i++) {
   let searchContainer = searchContainers[i];
   let searchInput = searchContainers[i].querySelector(".search-input");
@@ -16,42 +12,11 @@ for (let i = 0; i < searchContainers.length; i++) {
   });
 }
 
-document.addEventListener("click", function (e) {
-  if (e.target.classList.contains("search-suggestions-list-item")) {
-    let model = e.target.innerText;
-    let column = null;
-    if (e.target.parentElement.classList.contains("col-1")) {
-      column = 1;
-    } else if (e.target.parentElement.classList.contains("col-2")) {
-      column = 2;
-    }
-    fetch("catalog-products.php?model=" + model)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        document.getElementById("brand-col-" + column).innerText =
-          data["brand"];
-        document.getElementById("model-col-" + column).innerText =
-          data["model"];
-        document.getElementById("screen-col-" + column).innerText =
-          data["screen"];
-        document.getElementById("os-col-" + column).innerText = data["os"];
-        document.getElementById("chipset-col-" + column).innerText =
-          data["chipset"];
-        document.getElementById("GPU-col-" + column).innerText = data["GPU"];
-        document.getElementById("RAM-col-" + column).innerText = data["RAM"];
-        document.getElementById("storage-col-" + column).innerText =
-          data["storage"];
-        document.getElementById("price-col-" + column).innerText =
-          data["price"];
-      })
-      .catch((error) => console.error("Error fetching:", error));
-
-    clearSuggestions();
-  }
-});
-
+// this gets and displays the search suggestions
+// it is called in the event listener for search suggestions
+// it fetches data from the PHP server every time a user inputs a letter in the search input
 function getSearchSuggestions(searchContainer, searchInput, searchIn) {
+  // where search suggestions will be displayed
   const searchSuggestionsContainer = searchContainer.querySelector(
     ".search-suggestions-container"
   );
@@ -65,6 +30,7 @@ function getSearchSuggestions(searchContainer, searchInput, searchIn) {
     return;
   }
 
+  // fetches the data
   fetch(
     "search-suggestions.php?searchIn=" +
       searchIn +
@@ -77,32 +43,95 @@ function getSearchSuggestions(searchContainer, searchInput, searchIn) {
       searchSuggestions.innerHTML = "";
 
       for (let i = 0; i < data.length; i++) {
+        // creates the list element for each fetched data, which is appended to the search suggestions
         let searchSuggestionsItem = document.createElement("li");
         searchSuggestionsItem.innerText = data[i];
-        searchSuggestionsItem.classList.add("search-suggestions-list-item");
+        searchSuggestionsItem.classList.add("search-suggestions-item");
         searchSuggestions.appendChild(searchSuggestionsItem);
+
+        // adds 'click' event listeners to each search suggestions item
+        // if clicked, the clicked item's data will be fetched from the PHP server, then displayed in the compare table
+        searchSuggestionsItem.addEventListener("click", function () {
+          getProduct(
+            searchSuggestionsItem,
+            searchInput,
+            searchSuggestionsContainer,
+            searchSuggestions
+          );
+        });
       }
 
       if (data.length <= 0) {
         searchSuggestions.innerHTML = "<p>No results found.</p>";
+        searchSuggestions.style.padding = "10px";
       }
     })
     .catch((error) => console.error("Error fetching suggestions:", error));
 }
 
-function clearSuggestions() {
-  let searchInputs = document.querySelectorAll(".search-input");
-  for (let i = 0; i < searchInputs.length; i++) {
-    searchInputs[i].value = "";
+// this gets the clicked item of the user from the search suggestions, and displays in the compare table
+// the data of the clicked item is fetched from the PHP server
+function getProduct(
+  searchSuggestionsItem,
+  searchInput,
+  searchSuggestionsContainer,
+  searchSuggestions
+) {
+  let model = searchSuggestionsItem.innerText;
+  let column = null;
+
+  // to determine which column should the data be displayed
+  if (searchSuggestionsItem.parentElement.classList.contains("col-1")) {
+    column = 1;
+  } else if (searchSuggestionsItem.parentElement.classList.contains("col-2")) {
+    column = 2;
   }
+
+  // fetches the data
+  fetch("catalog-products.php?model=" + model)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      document.getElementById("brand-col-" + column).innerText = data["brand"];
+      document.getElementById("model-col-" + column).innerText = data["model"];
+      document.getElementById("screen-col-" + column).innerText =
+        data["screen"];
+      document.getElementById("os-col-" + column).innerText = data["os"];
+      document.getElementById("chipset-col-" + column).innerText =
+        data["chipset"];
+      document.getElementById("GPU-col-" + column).innerText = data["GPU"];
+      document.getElementById("RAM-col-" + column).innerText = data["RAM"];
+      document.getElementById("storage-col-" + column).innerText =
+        data["storage"];
+      document.getElementById("price-col-" + column).innerText = data["price"];
+
+      // clear search suggestions once data is fetched and displayed
+      searchInput.value = "";
+      searchSuggestionsContainer.style.display = "none";
+      searchSuggestions.innerHTML = "";
+    })
+    .catch((error) => console.error("Error fetching product:", error));
+}
+
+// this is so that when the user clicks outside the search input, the search suggestions will stop being displayed
+// but when the user clicks the search input again, the search suggestions will display again
+document.addEventListener("click", function (e) {
   let searchSuggestionsContainers = document.querySelectorAll(
     ".search-suggestions-container"
   );
-  for (let i = 0; i < searchSuggestionsContainers.length; i++) {
-    searchSuggestionsContainers[i].style.display = "none";
+
+  if (
+    e.target.classList.contains("search-input") &&
+    e.target.value.trim() === ""
+  ) {
+    if (e.target.classList.contains("col-1")) {
+      searchSuggestionsContainers[0].style.display = "block";
+    } else if (e.target.classList.contains("col-2")) {
+      searchSuggestionsContainers[1].style.display = "block";
+    }
+  } else {
+    for (let i = 0; i < searchSuggestionsContainers.length; i++) {
+      searchSuggestionsContainers[i].style.display = "none";
+    }
   }
-  let searchSuggestions = document.querySelectorAll(".search-suggestions");
-  for (let i = 0; i < searchSuggestions.length; i++) {
-    searchSuggestions[i].innerHTML = "";
-  }
-}
+});
