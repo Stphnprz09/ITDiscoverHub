@@ -99,4 +99,43 @@
 
         return $foundTablet;
     }
+
+    // createWishlist() function from the db_service.php is used to add a new wishlist data to the database
+    function addWishlist($email, $category, $model) {
+        $result = createWishlist($email, $category, $model);
+
+        return $result; // a boolean whether the data is successfully inserted to the table
+    }
+
+    // this gets all the wishlists data of a specific user based on the $email parameter from the database 
+    // using the getWishlistsByEmail() function from db_Service.php
+    function getUserWishlists($email) {
+        $foundWishlists = getWishlistsByEmail($email);
+
+        return $foundWishlists; 
+    }
+
+    // this checks whether a certain wishlist record already exists in the database
+    // this is to avoid duplicate wish list for user
+    // this function returns a boolean
+    function isInUserWishlists($email, $category, $model) {
+        $userWishlist = getUserWishlists($email);
+        $isFound = false;
+        
+        foreach ($userWishlist as $wishlist) {
+            if ($wishlist->category === $category && $wishlist->model === $model) {
+                $isFound = true;
+                break;
+            }
+        }
+
+        return $isFound;
+    }
+
+    // deleteWishlist() function from the db_service.php is used to delete a wishlist record from the database
+    function removeWishlist($email, $category, $model) {
+        $result = deleteWishlist($email, $category, $model);
+
+        return $result; // a boolean whether the record is successfully deleted from the table
+    }
 ?>

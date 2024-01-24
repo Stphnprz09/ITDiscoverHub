@@ -235,7 +235,8 @@ h1 {
   color: rgb(224, 220, 220);
 }
 
-.wishlist-btn {
+.wishlist-btn,
+.remove-wishlist-btn {
   width: 80%;
   font-size: 0.9rem;
   color: white;

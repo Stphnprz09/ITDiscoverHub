@@ -81,4 +81,16 @@
             $this->price = $price;
         } 
     }
+
+    class Wishlist {
+        public $email;
+        public $category;
+        public $model;
+
+        public function __construct($email, $category, $model) {
+            $this->email = $email;
+            $this->category = $category;
+            $this->model = $model;
+        } 
+    }
 ?>

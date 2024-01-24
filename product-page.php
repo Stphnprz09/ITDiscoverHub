@@ -7,6 +7,18 @@
     if (!isset($category) || !isset($model)) {
       header("Location: catalog-main.php");
     }
+
+    $product = null;
+    
+    if ($category == "smartphones") {
+      $product = getSmartphoneByModel($model);
+    }
+    else if ($category == "laptops") {
+      $product = getLaptopByModel($model);
+    }
+    else if ($category == "tablets") {
+      $product = getTabletByModel($model);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -34,135 +46,66 @@
       </nav>
     </header>
     <main>
-      <?php if ($category === "smartphones") { ?>
-        <?php $smartphone = getSmartphoneByModel($model); ?>
-          <?php if (isset($smartphone)) { ?>
+          <?php if (isset($product)) { ?>
               <div class="product-container">
-                  <h1><?php echo $smartphone->model ?></h1>
+                  <h1><?php echo $product->model ?></h1>
                   <img class="product-img" src="images/catalog-images/smartphone1.jpg" alt="">
                   <table border="1">
                       <tr>
                           <th>Brand</th>
-                          <td><?php echo $smartphone->brand ?></td>
+                          <td><?php echo $product->brand ?></td>
                       </tr>
                       <tr>
                           <th>Model</th>
-                          <td><?php echo $smartphone->model ?></td>
-                      </tr>
-                      <tr>
-                          <th>Screen</th>
-                          <td><?php echo $smartphone->screen ?></td>
+                          <td><?php echo $product->model ?></td>
                       </tr>
                       <tr>
                           <th>OS</th>
-                          <td><?php echo $smartphone->os ?></td>
+                          <td><?php echo $product->os ?></td>
                       </tr>
-                      <tr>
-                          <th>Chipset</th>
-                          <td><?php echo $smartphone->chipset ?></td>
-                      </tr>
-                      <tr>
-                          <th>GPU</th>
-                          <td><?php echo $smartphone->GPU ?></td>
-                      </tr>
-                      <tr>
-                          <th>RAM</th>
-                          <td><?php echo $smartphone->RAM ?></td>
-                      </tr>
-                      <tr>
-                          <th>Storage</th>
-                          <td><?php echo $smartphone->storage ?></td>
-                      </tr>
-                      <tr>
-                          <th>Price</th>
-                          <td><?php echo $smartphone->price ?></td>
-                      </tr>
-                  </table>
-              </div>
-          <?php } ?>
-        <?php } ?>
-      <?php if ($category === "laptops") { ?>
-        <?php $laptop = getLaptopByModel($model); ?>
-          <?php if (isset($laptop)) { ?>
-              <div class="product-container">
-                  <h1><?php echo $laptop->model ?></h1>
-                  <img class="product-img" src="images/catalog-images/laptop1.jpg" alt="">
-                  <table border="1">
-                      <tr>
-                          <th>Brand</th>
-                          <td><?php echo $laptop->brand ?></td>
-                      </tr>
-                      <tr>
-                          <th>Model</th>
-                          <td><?php echo $laptop->model ?></td>
-                      </tr>
-                      <tr>
-                          <th>OS</th>
-                          <td><?php echo $laptop->os ?></td>
-                      </tr>
-                      <tr>
+                      <?php  if ($category === "smartphones" || $category === "tablets") {  ?>
+                        <tr>
+                            <th>Screen</th>
+                            <td><?php echo $product->screen ?></td>
+                        </tr>
+                      <?php } ?>
+                      <?php  if ($category === "laptops" || $category === "tablets") {  ?>
+                        <tr>
                           <th>Processor</th>
-                          <td><?php echo $laptop->processor ?></td>
-                      </tr>
+                          <td><?php echo $product->processor ?></td>
+                        </tr>
+                      <?php } ?>
+                      <?php  if ($category === "smartphones") {  ?>
+                        <tr>
+                            <th>Chipset</th>
+                            <td><?php echo $product->chipset ?></td>
+                        </tr>
+                        <tr>
+                            <th>GPU</th>
+                            <td><?php echo $product->GPU ?></td>
+                        </tr>
+                      <?php } ?>
                       <tr>
                           <th>RAM</th>
-                          <td><?php echo $laptop->RAM ?></td>
+                          <td><?php echo $product->RAM ?></td>
                       </tr>
                       <tr>
                           <th>Storage</th>
-                          <td><?php echo $laptop->storage ?></td>
+                          <td><?php echo $product->storage ?></td>
                       </tr>
-                      <tr>
-                          <th>Price</th>
-                          <td><?php echo $laptop->price ?></td>
-                      </tr>
-                  </table>
-              </div>
-          <?php } ?>
-      <?php } ?>
-      <?php if ($category === "tablets") { ?>
-        <?php $tablet = getTabletByModel($model); ?>
-          <?php if (isset($tablet)) { ?>
-              <div class="product-container">
-                  <h1><?php echo $tablet->model ?></h1>
-                  <img class="product-img" src="images/catalog-images/laptop1.jpg" alt="">
-                  <table border="1">
-                      <tr>
-                          <th>Brand</th>
-                          <td><?php echo $tablet->brand ?></td>
-                      </tr>
-                      <tr>
-                          <th>Model</th>
-                          <td><?php echo $tablet->model ?></td>
-                      </tr>
-                      <tr>
-                          <th>Screen</th>
-                          <td><?php echo $tablet->screen ?></td>
-                      </tr>
-                      <tr>
-                          <th>Processor</th>
-                          <td><?php echo $tablet->processor ?></td>
-                      </tr>
-                      <tr>
-                          <th>RAM</th>
-                          <td><?php echo $tablet->RAM ?></td>
-                      </tr>
-                      <tr>
-                          <th>Storage</th>
-                          <td><?php echo $tablet->storage ?></td>
-                      </tr>
-                      <tr>
+                      <?php  if ($category === "tablets") {  ?>
+                        <tr>
                           <th>Battery Life</th>
-                          <td><?php echo $tablet->batteryLife ?></td>
-                      </tr>
+                          <td><?php echo $product->batteryLife ?></td>
+                        </tr>
+                      <?php } ?>
                       <tr>
                           <th>Price</th>
-                          <td><?php echo $tablet->price ?></td>
+                          <td><?php echo $product->price ?></td>
                       </tr>
                   </table>
               </div>
-          <?php } ?>
-      <?php } ?>
+            <?php } ?>
       <button class="wishlist-btn">Add to wishlist</button>
     </main>
     <footer>

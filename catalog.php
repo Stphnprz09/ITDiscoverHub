@@ -58,14 +58,19 @@
           <a class="compare-link" href="compare-products.php?category=<?php echo $category ?>">Compare</a>
         </div>
               <div class="catalog-container">
-              <?php foreach ($catalogItems as $catalogItem) { ?> 
+              <?php foreach ($catalogItems as $catalogItem) {
+                ?> 
                 <div class="catalog-item-container">
                     <!-- this 'a' tag goes to product-page.php and passes the model of the current $smartphone in loop as parameter -->
                     <a href="product-page.php?category=<?php echo $category ?>&model=<?php echo $catalogItem->model ?>">
                         <img class="catalog-item-img" src="images/catalog-images/laptop2.jpg" alt="">
                         <p class="catalog-item-text"><?php echo $catalogItem->model ?></p>
                     </a>
-                    <button class="wishlist-btn">Add to wishlist</button>
+                    <?php if (isset($_SESSION['isLoggedIn']) && isInUserWishlists($_SESSION['email'], $category, $catalogItem->model) === true) { ?>
+                      <button class="remove-wishlist-btn" data-model="<?php echo $catalogItem->model; ?>">Remove wishlist</button>
+                    <?php } else { ?>
+                      <button class="wishlist-btn" data-model="<?php echo $catalogItem->model; ?>">Add to wishlist</button>
+                    <?php } ?>
                 </div>
               <?php } ?> 
               </div>
@@ -158,8 +163,9 @@
     </footer>
     <script>
       let isLoggedIn = <?php echo isset($_SESSION['isLoggedIn']) ? 'true' : 'false' ;?>;
-      let email = <?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'null' ;?>;
+      let email = <?php echo isset($_SESSION['email']) ? "'" . $_SESSION['email'] . "'" : 'null' ;?>;
+      let category = <?php echo "'" . $category . "'"; ?>;
     </script>
-    <script src="catalog.js"></script>
+    <script src="catalog.js" defer></script>
   </body>
 </html>

@@ -119,4 +119,51 @@
 
         return $tablets;
     }
+
+    // inserts new user wish list data to the database
+    function createWishlist($email, $category, $model) {
+        global $conn;
+        
+        $sql = "INSERT INTO userWishlist (`email`, `category`, `model`) VALUES ('" . $email . "', '" . $category . "', '" . $model . "')";
+	    $result = $conn->query($sql);
+
+        echo mysqli_error($conn);
+
+        return $result;     // a boolean whether the data is successfully inserted to the table
+    }
+
+    // gets all the wishlists data from the userWishList table based on the $email parameter
+    function getWishlistsByEmail($email) {
+        global $conn;
+
+        $sql = "SELECT `email`, `category`, `model` FROM userwishlist WHERE email='" . $email . "'";
+        $result = $conn->query($sql);
+
+        $wishlists = [];    // will be array of Wishlist objects
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // creates Wishlist object from the result, then adds to the $wishlists array that will be returned
+                $wishlist = new Wishlist($row['email'], $row['category'], $row['model']);
+                $wishlists[] = $wishlist;
+            }
+        } 
+        else {
+            echo $conn->error;
+        }
+
+        return $wishlists;
+    }
+
+    // deletes a user wish list data in the database
+    function deleteWishlist($email, $category, $model) {
+        global $conn;
+        
+        $sql = "DELETE FROM userWishlist WHERE email='" . $email . "'AND category='" . $category . "'AND model='" . $model . "'";
+	    $result = $conn->query($sql);
+
+        echo mysqli_error($conn);
+
+        return $result;     // a boolean whether the record was successfully deleted to the table
+    }
 ?>
