@@ -1,3 +1,10 @@
+const advancedFilterBtn = document.getElementById("advanced-filter-btn");
+const dropdownsContainer = document.getElementById("dropdowns-container");
+
+advancedFilterBtn.addEventListener("click", function () {
+  dropdownsContainer.classList.toggle("hide");
+});
+
 let wishlistBtns = document.querySelectorAll(".wishlist-btn");
 let removeWishlistBtns = document.querySelectorAll(".remove-wishlist-btn");
 

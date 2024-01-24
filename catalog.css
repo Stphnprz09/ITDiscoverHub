@@ -185,6 +185,62 @@ main {
   padding: 2rem 5rem;
 }
 
+.advanced-filter-container {
+  position: relative;
+  min-width: 18rem;
+}
+
+.advanced-filter-btn {
+  background-color: transparent;
+  inset: 0;
+  border: none;
+  color: white;
+  text-decoration: underline;
+  text-align: center;
+  display: block;
+  width: 100%;
+  margin-bottom: 0.8rem;
+}
+
+.dropdowns-container {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 0 0 3px gray;
+  border-radius: 10px;
+}
+
+.advanced-filter-container select {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.3rem;
+  border-radius: 10px;
+  border: none;
+  color: #0b0235;
+  background-color: #f0eef8;
+}
+
+.hide {
+  display: none;
+}
+
+.apply-advanced-filter-btn {
+  display: block;
+  background-color: rgb(110, 99, 99);
+  color: white;
+  font-size: 0.9rem;
+  inset: 0;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3rem 2rem;
+  box-shadow: 0 0 2px;
+  margin-left: auto;
+  margin-top: 1rem;
+}
+
 .h1-compare-link-container {
   display: flex;
   justify-content: space-between;

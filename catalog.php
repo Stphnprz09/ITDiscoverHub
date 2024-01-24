@@ -55,6 +55,51 @@
     <main>
         <div class="h1-compare-link-container">
           <h1><?php echo $category ?></h1>
+          <div class="advanced-filter-container">
+            <button class="advanced-filter-btn" id="advanced-filter-btn">Advanced Filter</button>
+            <div class="hide dropdowns-container" id="dropdowns-container">
+              <select name="brand" id="brand">
+                <option value="none" selected>Brand</option>
+                <option value="Dell">Dell</option>
+                <option value="Samsung">Samsung</option>
+                <option value="HP">HP</option>
+              </select>
+              <select name="os" id="os">
+                <option value="none" selected>OS</option>
+                <option value="Windows">Windows</option>
+                <option value="Apple">Apple</option>
+              </select>
+              <select name="ram" id="ram">
+                <option value="none" selected>RAM</option>
+                <option value="2GB">2GB</option>
+                <option value="4GB">4GB</option>
+                <option value="8GB">8GB</option>
+                <option value="16GB">16GB</option>
+              </select>
+              <select name="storage" id="storage">
+                <option value="none" selected>Storage</option>
+                <option value="32GB">32GB</option>
+                <option value="64GB">64GB</option>
+                <option value="128GB">128GB</option>
+                <option value="256GB">256GB</option>
+              </select>
+              <select name="price" id="price">
+                <option value="none" selected>Price</option>
+                <option value="< $100">< $100</option>
+                <option value="< $500">< $500</option>
+                <option value="< $1000">< $1000</option>
+                <option value="< $1500">< $1500</option>
+              </select>
+              <button class="apply-advanced-filter-btn" id="apply-advanced-filter-btn">Apply</button>
+            </div>
+          </div>
+          <!-- <div class="search-container">
+                  <input class="search-input col-1" type="text"
+                  autocomplete="off"">
+                  <div class="search-suggestions-container">
+                    <ul class="search-suggestions col-1"></ul>
+                  </div>
+                </div> -->
           <a class="compare-link" href="compare-products.php?category=<?php echo $category ?>">Compare</a>
         </div>
               <div class="catalog-container">
