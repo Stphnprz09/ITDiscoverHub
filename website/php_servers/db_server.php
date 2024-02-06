@@ -6,7 +6,7 @@
     $servername = "localhost";
 	$dbuser = "root";
 	$dbpassword = "";
-	$dbname = "itdiscoverhub";
+	$dbname = "dbitdiscoverhub";
 
     // database connection
 	$conn = new mysqli($servername, $dbuser, $dbpassword, $dbname);
@@ -124,7 +124,7 @@
     function createWishlist($email, $category, $model) {
         global $conn;
         
-        $sql = "INSERT INTO userWishlist (`email`, `category`, `model`) VALUES ('" . $email . "', '" . $category . "', '" . $model . "')";
+        $sql = "INSERT INTO wishlist (`email`, `category`, `model`) VALUES ('" . $email . "', '" . $category . "', '" . $model . "')";
 	    $result = $conn->query($sql);
 
         echo mysqli_error($conn);
@@ -136,7 +136,7 @@
     function getWishlistsByEmail($email) {
         global $conn;
 
-        $sql = "SELECT `email`, `category`, `model` FROM userWishlist WHERE email='" . $email . "'";
+        $sql = "SELECT `email`, `category`, `model` FROM wishlist WHERE email='" . $email . "'";
         $result = $conn->query($sql);
 
         $wishlists = [];    // will be array of Wishlist objects
@@ -159,7 +159,7 @@
     function deleteWishlist($email, $category, $model) {
         global $conn;
         
-        $sql = "DELETE FROM userWishlist WHERE email='" . $email . "'AND category='" . $category . "'AND model='" . $model . "'";
+        $sql = "DELETE FROM wishlist WHERE email='" . $email . "'AND category='" . $category . "'AND model='" . $model . "'";
 	    $result = $conn->query($sql);
 
         echo mysqli_error($conn);

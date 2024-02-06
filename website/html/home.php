@@ -1,3 +1,13 @@
+<?php
+  session_start();
+
+  $isLoggedIn = false;
+  
+  if (isset($_SESSION['isLoggedIn'])) {
+    $isLoggedIn = true;
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,33 +42,31 @@
           <li>
             <a class="contact-us-link" href="contact-us.html">Contact us</a>
           </li>
-
-          <!--Sign In-->
-          <li>
-            <div class="sign-in">
-              <a href="signup.html">
-                <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                <span class="hidden-text">Sign In</span>
-              </a>
-            </div>
-          </li>
-
-          <!--User Icon, Sign Out--><!--
-          <li class="dropdown-wrapper">
-            <a class="user-icon" href="profile.php"><img src="<?php echo htmlspecialchars($currentUser->getProfilePicture()); ?>" alt="Profile Picture"></a>
-            <span class="drop-icon" tabindex="0" onclick="toggleDropdown(this)">
-              <i class="fa-solid fa-angle-down"></i>
-            </span>
-            <div class="dropdown-content">
-              <a class="sign-out" href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Sign Out</a>
-            </div>
-          </li>
-          
+          <?php if ($isLoggedIn === true) { ?>
+            <li class="dropdown-wrapper">
+              <a class="user-icon" href="profile.php"><img src="<?php echo $_SESSION['profilePicture'] ?>" alt="Profile Picture"></a>
+              <span class="drop-icon" tabindex="0" onclick="toggleDropdown(this)">
+                <i class="fa-solid fa-angle-down"></i>
+              </span>
+              <div class="dropdown-content">
+                <a class="sign-out" href="logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i>Sign Out</a>
+              </div>
+            </li>
+          <?php } else { ?>
+            <li>
+              <div class="sign-in">
+                <a href="login.php">
+                  <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                  <span class="hidden-text">Sign In</span>
+                </a>
+              </div>
+            </li>
+          <?php } ?>
           <script>
             function toggleDropdown(element) {
               element.closest('.dropdown-wrapper').classList.toggle('active');
             }
-          </script>-->
+          </script>
         </ul>
       </nav>
     </header>

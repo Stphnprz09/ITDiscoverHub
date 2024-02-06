@@ -23,7 +23,11 @@
         // then, the user will be redirected to home.html
         if ($user !== null) {
             $_SESSION['email'] = $email;
-            $_SESSION['firstName'] = $user->firstName; $_SESSION['lastName'] = $user->lastName; $_SESSION['isLoggedIn'] = true; header("Location: home.php"); }
+            $_SESSION['firstName'] = $user->firstName; 
+            $_SESSION['lastName'] = $user->lastName; 
+            $_SESSION['profilePicture'] = $user->profilePicture;
+            $_SESSION['isLoggedIn'] = true; 
+            header("Location: home.php"); }
         else { $error = "Invalid username or password."; } 
         } 
 ?>
