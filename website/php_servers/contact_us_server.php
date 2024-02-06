@@ -52,10 +52,10 @@ The IT Discover Hub Team";
         $mail->send();
 
         echo "<script>alert(Thank you for subscribing! You will receive an email with the latest news shortly.);</script>";
-        header("Location: ../html/contact-us.html");
+        header("Location: ../html/contact-us.php");
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        header("Location: ../html/contact-us.html");
+        header("Location: ../html/contact-us.php");
     }
 } else {
     echo "Invalid Request";

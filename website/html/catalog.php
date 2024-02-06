@@ -178,7 +178,6 @@
                   <select name="os" id="os">
                     <option value="" selected>OS</option>
                     <option value="Windows">Windows</option>
-                    <option value="Apple">Apple</option>
                   </select>
                   <?php } ?>
                   <!-- if the category is "tablets", the following is the options for brand and os -->
@@ -192,7 +191,6 @@
                   <select name="os" id="os">
                     <option value="" selected>OS</option>
                     <option value="Android">Android</option>
-                    <option value="iOS">iOS</option>
                   </select>
                   <?php } ?>
                   <select name="ram" id="ram">
@@ -225,6 +223,10 @@
             <a class="compare-link" href="compare-products.php?category=<?php echo $category ?>">Compare</a>
           </div>
         </div>
+
+        <?php if (count($catalogItems) <= 0 ) { ?>
+          <p style="text-align: center; margin: 6rem auto 0;">No resuls found.</p>
+        <?php } ?>
 
         <!-- the display of catalog items -->
         <div class="catalog-container">

@@ -32,13 +32,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (updateUserInfo($currentUserEmail, $firstName, $lastName, $newEmail, $newPassword)) {
 
-        session_destroy();
-
         session_start();
 
         $_SESSION['email'] = $newEmail;
 
         header("Location: ../html/profile.php");
+        
         exit();
     } else {
         echo "Failed to update user information.";

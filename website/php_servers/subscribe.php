@@ -48,10 +48,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // echo "Thank you for subscribing! You will receive an email with the latest news shortly.";
         echo "<script>alert('Thank you for subscribing! You will receive an email with the latest news shortly.');</script>";
-        header("Location: news.html");
+        header("Location: ../html/news.php");
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        header("Location: news.html");
+        header("Location: ../html/news.php");
     }
 } else {
     echo "Invalid Request";
