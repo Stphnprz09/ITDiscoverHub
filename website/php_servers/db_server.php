@@ -19,7 +19,7 @@
     function getUsers() {
         global $conn;
 
-        $sql = "SELECT `firstName`, `lastName`, `email`, `password` FROM user";
+        $sql = "SELECT `firstName`, `lastName`, `email`, `password`, `profilePicture` FROM user";
         $result = $conn->query($sql);
 
         $users = [];    // will be array of User objects
@@ -27,7 +27,7 @@
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 // creates User object from the result, then adds to the $users array that will be returned
-                $user = new User($row['firstName'], $row['lastName'], $row['email'], $row['password']);
+                $user = new User($row['firstName'], $row['lastName'], $row['email'], $row['password'], $row['profilePicture']);
                 $users[] = $user;
             }
         } 
@@ -136,7 +136,7 @@
     function getWishlistsByEmail($email) {
         global $conn;
 
-        $sql = "SELECT `email`, `category`, `model` FROM userwishlist WHERE email='" . $email . "'";
+        $sql = "SELECT `email`, `category`, `model` FROM userWishlist WHERE email='" . $email . "'";
         $result = $conn->query($sql);
 
         $wishlists = [];    // will be array of Wishlist objects
@@ -165,5 +165,26 @@
         echo mysqli_error($conn);
 
         return $result; 
+    }
+
+    // update user information in database
+    function updateUserInfo($email, $firstName, $lastName, $newemail, $password) {
+        global $conn;
+    
+        $sql = "UPDATE user SET firstName = '$firstName', lastName = '$lastName', email = '$newemail', password = '$password' WHERE email = '$email'";
+        $result = $conn->query($sql);
+    
+        return $result;
+    }
+
+    // change profile picture
+    function updateProfilePicture($email, $profilePicture) {
+        global $conn;
+    
+        $sql = "UPDATE user SET profilePicture = '$profilePicture' WHERE email = '$email'";
+        $result = $conn->query($sql);
+
+        return $result;
+        
     }
 ?>
