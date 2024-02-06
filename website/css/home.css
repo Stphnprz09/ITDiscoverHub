@@ -406,7 +406,7 @@ main > section:not(:last-child) {
 
 /*Subscribe Section*/
 .subscribe-section {
-  max-width: 100rem;
+  max-width: 1600px;
   padding: 0 10% 5rem;
   margin-top: 10rem;
 }

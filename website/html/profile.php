@@ -4,6 +4,13 @@ include_once '../php_servers/db_server.php';
 
 // Check if the user is logged in 
 session_start();
+
+$isLoggedIn = false;
+
+if (isset($_SESSION['isLoggedIn'])) {
+  $isLoggedIn = true;
+}
+
 if (!isset($_SESSION['email'])) {
     // Redirect to login page if not logged in
     header("Location: login.php");
@@ -49,20 +56,25 @@ $wishlists = getWishlistsByEmail($userEmail);
 
 
   <body>
-    <header>
-        <img class="website-logo" src="../images/IDH-logo-1.png" alt="Logo of ITDiscoverHub" />
+  <header>
+      <img
+        class="website-logo"
+        src="../images/IDH-logo-1.png"
+        alt="Logo of ITDiscoverHub"
+      />
 
-    <nav class="header-nav">
-      <ul>
-            <li><a href="home.php">Home</a></li>
-            <li><a href="about-us.html">About us</a></li>
-            <li><a href="catalog-main.html">Catalog</a></li>
-            <li><a href="news.html">News</a></li>
-            <li><a class="contact-us" href="contact-us.html">Contact us</a></li>
+      <nav class="header-nav">
+        <ul>
+          <li><a href="home.php">Home</a></li>
+          <li><a href="about-us.php">About us</a></li>
+          <li><a href="catalog-main.php">Catalog</a></li>
+          <li><a href="news.php">News</a></li>
+          <li>
+            <a class="contact-us-link" href="contact-us.php">Contact us</a>
+          </li>
+          <?php if ($isLoggedIn === true) { ?>
             <li class="dropdown-wrapper">
-              <a class="user-icon" href="profile.php"><img src="<?php echo htmlspecialchars($currentUser->getProfilePicture()); ?>" 
-              alt="Profile Picture">
-              </a>
+              <a class="user-icon" href="profile.php"><img src="<?php echo $_SESSION['profilePicture'] ?>" alt="Profile Picture"></a>
               <span class="drop-icon" tabindex="0" onclick="toggleDropdown(this)">
                 <i class="fa-solid fa-angle-down"></i>
               </span>
@@ -70,14 +82,23 @@ $wishlists = getWishlistsByEmail($userEmail);
                 <a class="sign-out" href="logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i>Sign Out</a>
               </div>
             </li>
-            
-            <script>
-              function toggleDropdown(element) {
-                element.closest('.dropdown-wrapper').classList.toggle('active');
-              }
-            </script>
-      </ul>
-    </nav>
+          <?php } else { ?>
+            <li>
+              <div class="sign-in">
+                <a href="login.php">
+                  <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                  <span class="hidden-text">Sign In</span>
+                </a>
+              </div>
+            </li>
+          <?php } ?>
+          <script>
+            function toggleDropdown(element) {
+              element.closest('.dropdown-wrapper').classList.toggle('active');
+            }
+          </script>
+        </ul>
+      </nav>
     </header>
 
     <div class="container">

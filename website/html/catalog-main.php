@@ -1,3 +1,13 @@
+<?php
+  session_start();
+
+  $isLoggedIn = false;
+
+  if (isset($_SESSION['isLoggedIn'])) {
+    $isLoggedIn = true;
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,8 +27,7 @@
   />
   </head>
   <body>
-    <!--Navigation-->
-    <header>
+  <header>
       <img
         class="website-logo"
         src="../images/IDH-logo-1.png"
@@ -28,41 +37,40 @@
       <nav class="header-nav">
         <ul>
           <li><a href="home.php">Home</a></li>
-          <li><a href="about-us.html">About us</a></li>
+          <li><a href="about-us.php">About us</a></li>
           <li><a class="current-page" href="catalog-main.php">Catalog</a></li>
-          <li><a href="news.html">News</a></li>
+          <li><a href="news.php">News</a></li>
           <li>
-            <a class="contact-us-link" href="contact-us.html">Contact us</a>
+            <a class="contact-us-link" href="contact-us.php">Contact us</a>
           </li>
-          <!--Sign In-->
-          <li>
-            <div class="sign-in">
-              <a href="login.php">
-                <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                <span class="hidden-text">Sign In</span>
-              </a>
-            </div>
-          </li>
-
-          <!--User Icon, Sign Out--><!--
-          <li class="dropdown-wrapper">
-            <a class="user-icon" href="profile.php"><img src="<?php echo htmlspecialchars($currentUser->getProfilePicture()); ?>" alt="Profile Picture"></a>
-            <span class="drop-icon" tabindex="0" onclick="toggleDropdown(this)">
-              <i class="fa-solid fa-angle-down"></i>
-            </span>
-            <div class="dropdown-content">
-              <a class="sign-out" href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Sign Out</a>
-            </div>
-          </li>
-          
+          <?php if ($isLoggedIn === true) { ?>
+            <li class="dropdown-wrapper">
+              <a class="user-icon" href="profile.php"><img src="<?php echo $_SESSION['profilePicture'] ?>" alt="Profile Picture"></a>
+              <span class="drop-icon" tabindex="0" onclick="toggleDropdown(this)">
+                <i class="fa-solid fa-angle-down"></i>
+              </span>
+              <div class="dropdown-content">
+                <a class="sign-out" href="logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i>Sign Out</a>
+              </div>
+            </li>
+          <?php } else { ?>
+            <li>
+              <div class="sign-in">
+                <a href="login.php">
+                  <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                  <span class="hidden-text">Sign In</span>
+                </a>
+              </div>
+            </li>
+          <?php } ?>
           <script>
             function toggleDropdown(element) {
               element.closest('.dropdown-wrapper').classList.toggle('active');
             }
-          </script>-->
+          </script>
         </ul>
       </nav>
-      </header>
+    </header>
     <main>
       <section class="section-catalog-categories with-bg">
         <h2>
@@ -141,7 +149,7 @@
               <span class="block">We promise not to spam you.</span>
             </p>
           </div>
-          <form class="subscription-form" action="subscribe.php" method="post">
+          <form class="subscription-form" action="../php_servers/subscribe.php" method="post">
             <input
               type="email"
               name="email"
@@ -167,10 +175,10 @@
             <p><strong>About us</strong></p>
             <nav>
               <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">Catalog</a></li>
-                <li><a href="">Careers</a></li>
-                <li><a href="">Contact us</a></li>
+                <li><a href="home.php">Home</a></li>
+                <li><a href="catalog.php">Catalog</a></li>
+                <li><a href="about-us.php">About us</a></li>
+                <li><a href="contact-us.php">Contact us</a></li>
               </ul>
             </nav>
           </div>

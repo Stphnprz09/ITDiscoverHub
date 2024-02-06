@@ -2,7 +2,7 @@
   session_start();
 
   $isLoggedIn = false;
-  
+
   if (isset($_SESSION['isLoggedIn'])) {
     $isLoggedIn = true;
   }
@@ -36,11 +36,11 @@
       <nav class="header-nav">
         <ul>
           <li><a class="current-page" href="home.php">Home</a></li>
-          <li><a href="about-us.html">About us</a></li>
-          <li><a href="catalog-main.html">Catalog</a></li>
-          <li><a href="news.html">News</a></li>
+          <li><a href="about-us.php">About us</a></li>
+          <li><a href="catalog-main.php">Catalog</a></li>
+          <li><a href="news.php">News</a></li>
           <li>
-            <a class="contact-us-link" href="contact-us.html">Contact us</a>
+            <a class="contact-us-link" href="contact-us.php">Contact us</a>
           </li>
           <?php if ($isLoggedIn === true) { ?>
             <li class="dropdown-wrapper">
@@ -205,7 +205,7 @@
               <span class="block">We promise not to spam you.</span>
             </p>
           </div>
-          <form class="subscription-form" action="subscribe.php" method="post">
+          <form class="subscription-form" action="../php_servers/subscribe.php" method="post">
             <input
               type="email"
               name="email"
@@ -231,10 +231,10 @@
             <p><strong>About us</strong></p>
             <nav>
               <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">Catalog</a></li>
-                <li><a href="">Careers</a></li>
-                <li><a href="">Contact us</a></li>
+                <li><a href="home.php">Home</a></li>
+                <li><a href="catalog-main.php">Catalog</a></li>
+                <li><a href="about-us.php">About us</a></li>
+                <li><a href="contact-us.php">Contact us</a></li>
               </ul>
             </nav>
           </div>
