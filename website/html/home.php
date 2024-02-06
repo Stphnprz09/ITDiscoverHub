@@ -1,4 +1,6 @@
 <?php
+  include_once "../php_servers/rules.php";
+
   session_start();
 
   $isLoggedIn = false;
@@ -6,6 +8,8 @@
   if (isset($_SESSION['isLoggedIn'])) {
     $isLoggedIn = true;
   }
+
+  $latestTechnologies = getLatestTechnologies();
 ?>
 
 <!DOCTYPE html>
@@ -90,43 +94,79 @@
       <section class="section-popular-technologies width-80">
         <div class="flex-space-between-center">
           <h2>Current Popular Technologies</h2>
-          <a class="see-all-link" href="catalog.html">SEE ALL</a>
+          <a class="see-all-link" href="catalog.php">SEE ALL</a>
         </div>
         <div class="popular-technologies-div">
           <div class="popular-technologies-item">
-            <img src="css/images/catalog-images/laptop1.jpg" alt="laptop" />
+            <img src="../images/catalog/smartphones/<?php echo $latestTechnologies["smartphones"][0]->imageFileName ?>" alt="" />
             <div class="popular-technologies-bs">
-              <button class="wishlist-button">Add to my wishlist</button>
+              <!-- if user is logged in and this catalog item is in his/her wishlist, the button is "Remove wishlist" -->
+              <?php if (isset($_SESSION['isLoggedIn']) && isInUserWishlists($_SESSION['email'], "smartphones", $latestTechnologies["smartphones"][0]->model) === true) { ?>
+                <button class="remove-wishlist-btn" data-model="<?php echo $latestTechnologies["smartphones"][0]->model; ?>" data-category="smartphones">Remove wishlist</button>
+              <!-- else if user is NOT logged in or this catalog item is NOT in his/her wishlist, the button is "Add to wishlist" -->
+                <?php } else { ?>
+                <button class="wishlist-btn" data-model="<?php echo $latestTechnologies["smartphones"][0]->model; ?>" data-category="smartphones">Add to wishlist</button>
+              <?php } ?>
             </div>
           </div>
           <div class="popular-technologies-item">
-            <img src="css/images/catalog-images/laptop2.jpg" alt="laptop" />
+            <img src="../images/catalog/smartphones/<?php echo $latestTechnologies["smartphones"][1]->imageFileName ?>" alt="" />
             <div class="popular-technologies-bs">
-              <button class="wishlist-button">Add to my wishlist</button>
+              <!-- if user is logged in and this catalog item is in his/her wishlist, the button is "Remove wishlist" -->
+              <?php if (isset($_SESSION['isLoggedIn']) && isInUserWishlists($_SESSION['email'], "smartphones", $latestTechnologies["smartphones"][1]->model) === true) { ?>
+                <button class="remove-wishlist-btn" data-model="<?php echo $latestTechnologies["smartphones"][1]->model; ?>" data-category="smartphones">Remove wishlist</button>
+              <!-- else if user is NOT logged in or this catalog item is NOT in his/her wishlist, the button is "Add to wishlist" -->
+                <?php } else { ?>
+                <button class="wishlist-btn" data-model="<?php echo $latestTechnologies["smartphones"][1]->model; ?>" data-category="smartphones">Add to wishlist</button>
+              <?php } ?>
             </div>
           </div>
           <div class="popular-technologies-item">
-            <img src="css/images/catalog-images/laptop3.jpg" alt="laptop" />
+            <img src="../images/catalog/laptops/<?php echo $latestTechnologies["laptops"][0]->imageFileName ?>" alt="" />
             <div class="popular-technologies-bs">
-              <button class="wishlist-button">Add to my wishlist</button>
+              <!-- if user is logged in and this catalog item is in his/her wishlist, the button is "Remove wishlist" -->
+              <?php if (isset($_SESSION['isLoggedIn']) && isInUserWishlists($_SESSION['email'], "laptops", $latestTechnologies["laptops"][0]->model) === true) { ?>
+                <button class="remove-wishlist-btn" data-model="<?php echo $latestTechnologies["laptops"][0]->model; ?>" data-category="laptops">Remove wishlist</button>
+              <!-- else if user is NOT logged in or this catalog item is NOT in his/her wishlist, the button is "Add to wishlist" -->
+                <?php } else { ?>
+                <button class="wishlist-btn" data-model="<?php echo $latestTechnologies["laptops"][0]->model; ?>" data-category="laptops">Add to wishlist</button>
+              <?php } ?>
             </div>
           </div>
           <div class="popular-technologies-item">
-            <img src="css/images/catalog-images/tablet1.jpg" alt="tablet" />
+            <img src="../images/catalog/laptops/<?php echo $latestTechnologies["laptops"][1]->imageFileName ?>" alt="" />
             <div class="popular-technologies-bs">
-              <button class="wishlist-button">Add to my wishlist</button>
+              <!-- if user is logged in and this catalog item is in his/her wishlist, the button is "Remove wishlist" -->
+              <?php if (isset($_SESSION['isLoggedIn']) && isInUserWishlists($_SESSION['email'], "laptops", $latestTechnologies["laptops"][1]->model) === true) { ?>
+                <button class="remove-wishlist-btn" data-model="<?php echo $latestTechnologies["laptops"][1]->model; ?>" data-category="laptops">Remove wishlist</button>
+              <!-- else if user is NOT logged in or this catalog item is NOT in his/her wishlist, the button is "Add to wishlist" -->
+                <?php } else { ?>
+                <button class="wishlist-btn" data-model="<?php echo $latestTechnologies["laptops"][1]->model; ?>" data-category="laptops">Add to wishlist</button>
+              <?php } ?>
             </div>
           </div>
           <div class="popular-technologies-item">
-            <img src="css/images/catalog-images/tablet2.jpg" alt="tablet" />
+            <img src="../images/catalog/tablets/<?php echo $latestTechnologies["tablets"][0]->imageFileName ?>" alt="" />
             <div class="popular-technologies-bs">
-              <button class="wishlist-button">Add to my wishlist</button>
+              <!-- if user is logged in and this catalog item is in his/her wishlist, the button is "Remove wishlist" -->
+              <?php if (isset($_SESSION['isLoggedIn']) && isInUserWishlists($_SESSION['email'], "tablets", $latestTechnologies["tablets"][0]->model) === true) { ?>
+                <button class="remove-wishlist-btn" data-model="<?php echo $latestTechnologies["tablets"][0]->model; ?>" data-category="tablets">Remove wishlist</button>
+              <!-- else if user is NOT logged in or this catalog item is NOT in his/her wishlist, the button is "Add to wishlist" -->
+                <?php } else { ?>
+                <button class="wishlist-btn" data-model="<?php echo $latestTechnologies["tablets"][0]->model; ?>" data-category="tablets">Add to wishlist</button>
+              <?php } ?>
             </div>
           </div>
           <div class="popular-technologies-item">
-            <img src="css/images/catalog-images/tablet3.jpg" alt="tablet" />
+            <img src="../images/catalog/tablets/<?php echo $latestTechnologies["tablets"][1]->imageFileName ?>" alt="" />
             <div class="popular-technologies-bs">
-              <button class="wishlist-button">Add to my wishlist</button>
+              <!-- if user is logged in and this catalog item is in his/her wishlist, the button is "Remove wishlist" -->
+              <?php if (isset($_SESSION['isLoggedIn']) && isInUserWishlists($_SESSION['email'], "tablets", $latestTechnologies["tablets"][1]->model) === true) { ?>
+                <button class="remove-wishlist-btn" data-model="<?php echo $latestTechnologies["tablets"][1]->model; ?>" data-category="tablets">Remove wishlist</button>
+              <!-- else if user is NOT logged in or this catalog item is NOT in his/her wishlist, the button is "Add to wishlist" -->
+                <?php } else { ?>
+                <button class="wishlist-btn" data-model="<?php echo $latestTechnologies["tablets"][1]->model; ?>" data-category="tablets">Add to wishlist</button>
+              <?php } ?>
             </div>
           </div>
         </div>
@@ -156,36 +196,36 @@
         <div class="catalog-gallery">
           <img
             class="grid-col-span-4"
-            src="css/images/catalog-images/monitor1.jpg"
-            alt="desktop monitor"
+            src="../images/catalog/smartphones/<?php echo $latestTechnologies["smartphones"][2]->imageFileName ?>"
+            alt=""
           />
           <img
             class="grid-col-span-4"
-            src="css/images/catalog-images/monitor2.jpg"
-            alt="desktop monitor"
+            src="../images/catalog/smartphones/<?php echo $latestTechnologies["smartphones"][3]->imageFileName ?>"
+            alt=""
           />
           <img
             class="grid-col-span-4"
-            src="css/images/catalog-images/smartphone1.jpg"
-            alt="smartphone"
+            src="../images/catalog/laptops/<?php echo $latestTechnologies["laptops"][2]->imageFileName ?>"
+            alt=""
           />
           <img
             class="grid-col-span-3"
-            src="css/images/catalog-images/smartphone2.jpg"
-            alt="smartphone"
+            src="../images/catalog/laptops/<?php echo $latestTechnologies["laptops"][3]->imageFileName ?>"
+            alt=""
           />
           <img
             class="grid-col-span-4"
-            src="css/images/catalog-images/keyboard1.jpg"
-            alt="keyboard"
+            src="../images/catalog/tablets/<?php echo $latestTechnologies["tablets"][2]->imageFileName ?>"
+            alt=""
           />
           <img
             class="grid-col-span-5"
-            src="css/images/catalog-images/keyboard2.jpg"
-            alt="keyboard"
+            src="../images/catalog/tablets/<?php echo $latestTechnologies["tablets"][3]->imageFileName ?>"
+            alt=""
           />
         </div>
-        <a class="see-all-link center" href="catalog.html">SEE ALL</a>
+        <a class="see-all-link center" href="catalog.php">SEE ALL</a>
       </section>
     </main>
     <footer id="footer">
@@ -269,5 +309,13 @@
         </p>
       </section>
     </footer>
+    <script>
+      // variables that other js linked needs, such as wishlist.js
+      const isLoggedIn = <?php echo isset($_SESSION['isLoggedIn']) ? 'true' : 'false' ;?>;
+      const email = <?php echo isset($_SESSION['email']) ? "'" . $_SESSION['email'] . "'" : 'null' ;?>;
+      const urlParams = new URLSearchParams(window.location.search);
+      let category = urlParams.get("category");
+    </script>
+    <script src="../javascript/wishlist.js"></script>
   </body>
 </html>

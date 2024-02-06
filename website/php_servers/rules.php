@@ -146,6 +146,26 @@
         return $foundTablets;
     }
 
+    function getLatestTechnologies() {
+        $smartphones = getSmartphones();
+        $laptops = getLaptops();
+        $tablets = getTablets();
+
+        usort($smartphones, 'compareCatalogItemsByDate');
+        usort($laptops, 'compareCatalogItemsByDate');
+        usort($tablets, 'compareCatalogItemsByDate');
+
+        $latestTechnologies = array("smartphones" => [], "laptops" => [], "tablets" => []);
+
+        for ($i = 0; $i < 5; $i++) {
+            $latestTechnologies["smartphones"][] = $smartphones[$i];
+            $latestTechnologies["laptops"][] = $laptops[$i];
+            $latestTechnologies["tablets"][] = $tablets[$i];
+        }
+
+        return $latestTechnologies;
+    }
+
     // createWishlist() function from the db_service.php is used to add a new wishlist data to the database
     function addWishlist($email, $category, $model) {
         $result = createWishlist($email, $category, $model);

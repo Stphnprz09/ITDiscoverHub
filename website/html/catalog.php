@@ -69,9 +69,6 @@
     }
 
     usort($catalogItems, 'compareCatalogItemsByDate');
-  
-    // for ($i = 0; $i <= count($catalogItems); $i++) {
-    // }
 ?>
 
 <!DOCTYPE html>

@@ -10,6 +10,9 @@ for (let i = 0; i < wishlistBtns.length; i++) {
   wishlistBtn.addEventListener("click", function () {
     if (isLoggedIn) {
       model = wishlistBtn.getAttribute("data-model");
+      if (category == null) {
+        category = wishlistBtn.getAttribute("data-category");
+      }
 
       fetch("../php_servers/wishlist_server.php", {
         method: "POST",
@@ -46,6 +49,9 @@ for (let i = 0; i < removeWishlistBtns.length; i++) {
   let removeWishlistBtn = removeWishlistBtns[i];
   removeWishlistBtn.addEventListener("click", function () {
     model = removeWishlistBtn.getAttribute("data-model");
+    if (category == null) {
+      category = removeWishlistBtn.getAttribute("data-category");
+    }
 
     fetch(
       "../php_servers/wishlist_server.php?email=" +

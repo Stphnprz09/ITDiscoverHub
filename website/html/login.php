@@ -58,12 +58,16 @@
       </div>
 
       <div class="box2">
-        <form action="#" method="post">
+        <form action="login.php" method="post">
           <img class="logo" src="../images/IDH-logo-1.png" alt="" />
 
           <div class="head">
             <hh> Sign in </hh>
           </div>
+
+          <?php if (isset($error)) { ?>
+            <p style="color: red; margin-top: 7rem; font-size: 14px;"><?php echo $error ?></p>
+          <?php } ?>
 
           <input
             type=""
