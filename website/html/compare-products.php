@@ -116,11 +116,11 @@
         </tr>
         <tr>
           <th></th>
-          <td id="img-col-1">
-            <img src="" alt="" />
+          <td>
+            <img class="product-img" id="img-col-1" src="" alt="" />
           </td>
-          <td id="img-col-2">
-            <img src="" alt="" />
+          <td>
+            <img class="product-img" id="img-col-2" src="" alt="" />
           </td>
         </tr>
         <tr>

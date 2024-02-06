@@ -49,8 +49,9 @@
         public $storage;
         public $price;
         public $imageFileName;
+        public $releaseDate;
 
-        public function __construct($brand, $model, $screen, $os, $chipset, $gpu, $ram, $storage, $price, $imageFileName) {
+        public function __construct($brand, $model, $screen, $os, $chipset, $gpu, $ram, $storage, $price, $imageFileName, $releaseDate) {
             $this->brand = $brand;
             $this->model = $model;
             $this->screen = $screen;
@@ -61,6 +62,7 @@
             $this->storage = $storage;
             $this->price = $price;
             $this->imageFileName = $imageFileName;
+            $this->releaseDate = $releaseDate;
         } 
     }
     class Laptop {
@@ -71,9 +73,10 @@
         public $ram;
         public $storage;
         public $price;
+        public $imageFileName;
         public $releaseDate;
 
-        public function __construct($brand, $model, $os, $processor, $ram, $storage, $price, $releaseDate) {
+        public function __construct($brand, $model, $os, $processor, $ram, $storage, $price, $imageFileName, $releaseDate) {
             $this->brand = $brand;
             $this->model = $model;
             $this->os = $os;
@@ -81,6 +84,7 @@
             $this->ram = $ram;
             $this->storage = $storage;
             $this->price = $price;
+            $this->imageFileName = $imageFileName;
             $this->releaseDate = $releaseDate;
         } 
     }
@@ -94,8 +98,10 @@
         public $batteryLife;
         public $os;
         public $price;
+        public $imageFileName;
+        public $releaseDate;
 
-        public function __construct($brand, $model, $screen, $processor, $ram, $storage, $batteryLife, $os, $price) {
+        public function __construct($brand, $model, $screen, $processor, $ram, $storage, $batteryLife, $os, $price, $imageFileName, $releaseDate) {
             $this->brand = $brand;
             $this->model = $model;
             $this->screen = $screen;
@@ -105,6 +111,8 @@
             $this->batteryLife = $batteryLife;
             $this->os = $os;
             $this->price = $price;
+            $this->imageFileName = $imageFileName;
+            $this->releaseDate = $releaseDate;
         } 
     }
 

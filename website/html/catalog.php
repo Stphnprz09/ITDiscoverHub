@@ -189,8 +189,8 @@
                   <select name="brand" id="brand">
                     <option value="" selected>Brand</option>
                     <option value="Samsung">Samsung</option>
-                    <option value="Lenovo">Xiaomi</option>
-                    <option value="Redmi">OPPO</option>
+                    <option value="Lenovo">Lenovo</option>
+                    <option value="Redmi">Redmi</option>
                   </select>
                   <select name="os" id="os">
                     <option value="" selected>OS</option>
@@ -235,7 +235,13 @@
             <div class="catalog-item-container">
                 <!-- the link goes to the product-page.php and displays the clicked catalog item -->
                 <a href="product-page.php?category=<?php echo $category ?>&model=<?php echo $catalogItem->model ?>">
-                  <img class="catalog-item-img" src="images/catalog-images/<?php echo $catalogItem->imageFileName?>" alt="">
+                  <?php if ($category == "smartphones") { ?>
+                    <img class="catalog-item-img" src="../images/catalog/smartphones/<?php echo $catalogItem->imageFileName?>" alt="">
+                  <?php } else if ($category == "laptops") { ?>
+                    <img class="catalog-item-img" src="../images/catalog/laptops/<?php echo $catalogItem->imageFileName?>" alt="">
+                  <?php } else if ($category == "tablets") { ?>
+                    <img class="catalog-item-img" src="../images/catalog/tablets/<?php echo $catalogItem->imageFileName?>" alt="">
+                  <?php } ?>
                   <p class="catalog-item-text"><?php echo $catalogItem->model ?></p>
                 </a>
                 <!-- if user is logged in and this catalog item is in his/her wishlist, the button is "Remove wishlist" -->

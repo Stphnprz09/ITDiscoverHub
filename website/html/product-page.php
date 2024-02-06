@@ -95,7 +95,13 @@
       <?php if (isset($product)) { ?>
         <div class="product-container">
           <h1><?php echo $product->model ?></h1>
-          <img class="product-img" src="images/catalog-images/smartphone1.jpg" alt="">
+          <?php if ($category == "smartphones") { ?>
+            <img class="product-img" src="../images/catalog/smartphones/<?php echo $product->imageFileName?>" alt="">
+          <?php } else if ($category == "laptops") { ?>
+            <img class="product-img" src="../images/catalog/laptops/<?php echo $product->imageFileName?>" alt="">
+          <?php } else if ($category == "tablets") { ?>
+            <img class="product-img" src="../images/catalog/tablets/<?php echo $product->imageFileName?>" alt="">
+          <?php } ?>
           <table border="1">
             <tr>
               <th>Brand</th>

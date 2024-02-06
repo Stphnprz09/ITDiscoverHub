@@ -285,7 +285,11 @@ h1 {
 }
 
 .product-img {
+  background-color: white;
   width: 50%;
+  height: 300px;
+  object-fit: contain;
+  object-position: center;
   border-radius: 20px;
   box-shadow: 0 0 3px;
   margin-bottom: 3rem;
