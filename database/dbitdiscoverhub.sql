@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2024 at 07:51 PM
+-- Generation Time: Feb 06, 2024 at 08:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -45,6 +45,17 @@ INSERT INTO `admin` (`username`, `email`, `password`) VALUES
 ('Kristine Lacampuenga', 'admin_Lacampuenga@IDH.com', '1111'),
 ('Kyle Castronuevo', 'admin_Castronuevo@IDH.com', '1111'),
 ('Stephen Perez', 'admin_Perez@IDH.com', '1111');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subscribers`
+--
+
+CREATE TABLE `subscribers` (
+  `id` int(11) NOT NULL,
+  `email` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -232,6 +243,12 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`username`);
 
 --
+-- Indexes for table `subscribers`
+--
+ALTER TABLE `subscribers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -246,6 +263,12 @@ ALTER TABLE `wishlist`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `subscribers`
+--
+ALTER TABLE `subscribers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
