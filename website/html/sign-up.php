@@ -34,8 +34,8 @@
       if ($result) { 
         $user = getUser($email, $password);
         $_SESSION['email'] = $email;
-        $_SESSION['firstName'] = $user->firstName;
-        $_SESSION['lastName'] = $user->lastName;
+        $_SESSION['firstName'] = $firstName;
+        $_SESSION['lastName'] = $lastName;
         $_SESSION['profilePicture'] = "../images/profile-gradient-icon.png";
         $_SESSION['isLoggedIn'] = true;
         header("Location: home.php");
