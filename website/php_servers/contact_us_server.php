@@ -8,6 +8,7 @@ require 'vendor/autoload.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstName = $_POST["fname"];
     $lastName = $_POST["lname"];
+    $name = $firstName . " " . $lastName;
     $email = $_POST["email"];
     $message = $_POST["message"];
 
@@ -52,6 +53,32 @@ The IT Discover Hub Team";
         $mail->send();
 
         echo "<script>alert(Thank you for subscribing! You will receive an email with the latest news shortly.);</script>";
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'itdiscoverhub@gmail.com';
+        $mail->Password   = 'gajb qcyi hgtn scau';   // created via google app password
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
+
+        // Recipients
+        $mail->setFrom($email, $name);
+        $mail->addAddress("itdiscoverhub@gmail.com");
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = "User Feedback | " . $name;
+        $mail->Body    = $message;
+
+        // Send email
+        $mail->send();
+
         header("Location: ../html/contact-us.php");
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

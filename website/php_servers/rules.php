@@ -48,6 +48,10 @@
         return $foundUser; 
     }
 
+    function subscribe($email) {
+        addSubscriber($email);
+    }
+
     // gets a smartphone data by model
     function getSmartphoneByModel($model) {
         global $smartphones;    // accesses the global variable $smartphones

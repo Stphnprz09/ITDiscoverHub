@@ -51,6 +51,17 @@
         return $result;
     }
 
+    function addSubscriber($email) {
+        global $conn;
+        
+        $sql = "INSERT INTO subscribers (`email`) VALUES ('" . $email . "')";
+	    $result = $conn->query($sql);
+
+        echo mysqli_error($conn);
+
+        return $result;
+    }
+
     // gets all the smartphones data from the database
     function getSmartphones() {
         global $conn;
