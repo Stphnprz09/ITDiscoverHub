@@ -32,7 +32,6 @@
       // its information, such as email, first name, and last name is stored in the superglobal array $_SESSION;
       // then redirected to home.html
       if ($result) { 
-        $user = getUser($email, $password);
         $_SESSION['email'] = $email;
         $_SESSION['firstName'] = $firstName;
         $_SESSION['lastName'] = $lastName;
