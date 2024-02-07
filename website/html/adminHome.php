@@ -19,6 +19,9 @@
         <nav class="header-nav">
             <ul>
                 <li>
+                    <a class="newsletter" href="../php_servers/newsletter_server.php">Send Newsletter</a>
+                </li>
+                <li>
                     <div class="sign-in"><a href="admin-logout.php">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i>
                             <span class="hidden-text">Log out</span>

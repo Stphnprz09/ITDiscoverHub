@@ -52,6 +52,12 @@
         addSubscriber($email);
     }
 
+    function getSubscribers() {
+        $subscribers = getSubscribersEmail();
+
+        return $subscribers;
+    }
+
     // gets a smartphone data by model
     function getSmartphoneByModel($model) {
         global $smartphones;    // accesses the global variable $smartphones

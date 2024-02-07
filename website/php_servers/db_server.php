@@ -62,6 +62,26 @@
         return $result;
     }
 
+    function getSubscribersEmail() {
+        global $conn;
+
+        $sql = "SELECT `email` FROM subscribers";
+        $result = $conn->query($sql);
+
+        $subscribers = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $subscribers[] = $row['email'];
+            }
+        } 
+        else {
+            echo $conn->error;
+        }
+
+        return $subscribers;
+    }
+
     // gets all the smartphones data from the database
     function getSmartphones() {
         global $conn;
