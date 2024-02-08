@@ -7,7 +7,7 @@
   // if true, the user will be redirected to home.html
   // this ensures that if the user is logged in, it does not sign-up
   if (isset($_SESSION['isLoggedIn'])) {
-      header("Location: home.html");
+      header("Location: home.php");
   }
 
   // handles the sign up form
@@ -33,10 +33,11 @@
       // then redirected to home.html
       if ($result) { 
         $_SESSION['email'] = $email;
-        $_SESSION['firstName'] = $user->firstName;
-        $_SESSION['lastName'] = $user->lastName;
+        $_SESSION['firstName'] = $firstName;
+        $_SESSION['lastName'] = $lastName;
+        $_SESSION['profilePicture'] = "../images/profile-gradient-icon.png";
         $_SESSION['isLoggedIn'] = true;
-        header("Location: home.html");
+        header("Location: home.php");
       }
     }
   }

@@ -1,5 +1,7 @@
 <?php
 
+include_once 'rules.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -7,6 +9,8 @@ require 'vendor/autoload.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
+
+    subscribe($email);
 
     // Get the latest news using fetch API
     $newsAPI = "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=2cc204642c1c4b42b1171b82e8e25286";
@@ -48,10 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // echo "Thank you for subscribing! You will receive an email with the latest news shortly.";
         echo "<script>alert('Thank you for subscribing! You will receive an email with the latest news shortly.');</script>";
-        header("Location: news.html");
+        header("Location: ../html/news.php");
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        header("Location: news.html");
+        header("Location: ../html/news.php");
     }
 } else {
     echo "Invalid Request";

@@ -7,13 +7,35 @@
         public $lastName;
         public $email;
         public $password;
+        public $profilePicture;
 
-        public function __construct($firstName, $lastName, $email, $password) {
+        public function __construct($firstName, $lastName, $email, $password, $profilePicture) {
             $this->firstName = $firstName;
             $this->lastName = $lastName;
             $this->email = $email;
             $this->password = $password;
+            $this->profilePicture = $profilePicture;
         }        
+
+        public function getFirstName() {
+            return $this->firstName;
+        }
+        
+        public function getLastName() {
+            return $this->lastName;
+        }
+
+        public function getEmail() {
+            return $this->email;
+        }
+
+        public function getPassword() {
+            return $this->password;
+        }
+
+        public function getProfilePicture() {
+            return $this->profilePicture;
+        }
     }
 
     class Smartphone {
@@ -27,8 +49,9 @@
         public $storage;
         public $price;
         public $imageFileName;
+        public $releaseDate;
 
-        public function __construct($brand, $model, $screen, $os, $chipset, $gpu, $ram, $storage, $price, $imageFileName) {
+        public function __construct($brand, $model, $screen, $os, $chipset, $gpu, $ram, $storage, $price, $imageFileName, $releaseDate) {
             $this->brand = $brand;
             $this->model = $model;
             $this->screen = $screen;
@@ -39,6 +62,7 @@
             $this->storage = $storage;
             $this->price = $price;
             $this->imageFileName = $imageFileName;
+            $this->releaseDate = $releaseDate;
         } 
     }
     class Laptop {
@@ -49,9 +73,10 @@
         public $ram;
         public $storage;
         public $price;
+        public $imageFileName;
         public $releaseDate;
 
-        public function __construct($brand, $model, $os, $processor, $ram, $storage, $price, $releaseDate) {
+        public function __construct($brand, $model, $os, $processor, $ram, $storage, $price, $imageFileName, $releaseDate) {
             $this->brand = $brand;
             $this->model = $model;
             $this->os = $os;
@@ -59,6 +84,7 @@
             $this->ram = $ram;
             $this->storage = $storage;
             $this->price = $price;
+            $this->imageFileName = $imageFileName;
             $this->releaseDate = $releaseDate;
         } 
     }
@@ -72,8 +98,10 @@
         public $batteryLife;
         public $os;
         public $price;
+        public $imageFileName;
+        public $releaseDate;
 
-        public function __construct($brand, $model, $screen, $processor, $ram, $storage, $batteryLife, $os, $price) {
+        public function __construct($brand, $model, $screen, $processor, $ram, $storage, $batteryLife, $os, $price, $imageFileName, $releaseDate) {
             $this->brand = $brand;
             $this->model = $model;
             $this->screen = $screen;
@@ -83,6 +111,8 @@
             $this->batteryLife = $batteryLife;
             $this->os = $os;
             $this->price = $price;
+            $this->imageFileName = $imageFileName;
+            $this->releaseDate = $releaseDate;
         } 
     }
 
@@ -96,5 +126,17 @@
             $this->category = $category;
             $this->model = $model;
         } 
+
+        public function getEmail() {
+            return $this->email;
+        }
+    
+        public function getCategory() {
+            return $this->category;
+        }
+    
+        public function getModel() {
+            return $this->model;
+        }
     }
 ?>

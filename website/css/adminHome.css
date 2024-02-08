@@ -139,6 +139,13 @@ header {
     border-radius: 50%;
 }
 
+nav ul {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 3rem;
+}
+
 
 
 /*Sign In*/
@@ -148,7 +155,6 @@ header {
 }
 
 .sign-in {
-    margin-left: 35rem;
     position: relative;
 }
 

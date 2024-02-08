@@ -93,18 +93,14 @@ header {
   color: #ee7214;
 }
 
-.header-nav .current-page-contact-us {
+.header-nav .contact-us-link {
   background-color: #d80027;
   padding: 0.5em 1.5em;
   border-radius: 0.5em;
 }
 
-.header-nav .current-page-contact-us:hover {
+.header-nav .contact-us-link:hover {
   color: #070320;
-}
-
-.current-page-contact-us {
-  color: #000;
 }
 
 /*Sign In*/
@@ -140,38 +136,31 @@ header {
   display: block;
 }
 
-/*Profile Icon, Sign Out*/ /*
-.user-icon .fa-user {
-  font-size: 1.7rem;
-  width: 2.8rem;
-  height: 2.8rem;
-  background: linear-gradient(140deg, #fdea3f 12%, #f84931 , #e22663, #aa2792);
-  color: #fff;
-  text-align: center;
-  padding: 0.53rem;
+/* Profile Icon, Sign Out */
+.user-icon img {
+  max-width: 3.5rem;
+  max-height: 3.5rem;
   border-radius: 2rem;
-  transition: background-color 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
 }
 
-.user-icon .fa-user:hover {
-  color: #d9d9d9;
-  background: linear-gradient(140deg, #d9b946 12%, #d23527, #c71a51, #8b1b6d); 
+.user-icon img:hover {
+  opacity: 0.8;
 }
 
 .drop-icon .fa-angle-down {
-  margin-left: 0.3rem;
   font-size: 1.5rem;
 }
 
 .dropdown-content {
-  display: none; 
+  display: none;
   position: absolute;
-  top: 80%; 
-  left: 90%; 
-  background-color: #d9d9d9; 
-  border: 1px solid #ccc; 
-  padding: 0.8rem; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  width: max-content;
+  right: 1rem;
+  background-color: #d9d9d9;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 10000;
   color: #000;
   border-radius: 0.5rem;
@@ -182,12 +171,12 @@ header {
 }
 
 .drop-icon {
-  pointer-events: all; 
-  cursor: pointer; 
+  pointer-events: all;
+  cursor: pointer;
 }
 
 .dropdown-wrapper.active .fa-angle-down {
-  transform: rotate(180deg); 
+  transform: rotate(180deg);
 }
 
 .sign-out .fa-arrow-right-from-bracket {
@@ -199,7 +188,7 @@ header {
   text-align: center;
   border-radius: 2rem;
   padding: 0.5rem;
-}*/
+}
 
 /*Orig Code*/
 .contactspan {

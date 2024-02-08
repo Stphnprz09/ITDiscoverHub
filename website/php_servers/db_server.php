@@ -6,7 +6,7 @@
     $servername = "localhost";
 	$dbuser = "root";
 	$dbpassword = "";
-	$dbname = "itdiscoverhub";
+	$dbname = "dbitdiscoverhub";
 
     // database connection
 	$conn = new mysqli($servername, $dbuser, $dbpassword, $dbname);
@@ -19,7 +19,7 @@
     function getUsers() {
         global $conn;
 
-        $sql = "SELECT `firstName`, `lastName`, `email`, `password` FROM user";
+        $sql = "SELECT `firstName`, `lastName`, `email`, `password`, `profilePicture` FROM user";
         $result = $conn->query($sql);
 
         $users = [];    // will be array of User objects
@@ -27,7 +27,7 @@
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 // creates User object from the result, then adds to the $users array that will be returned
-                $user = new User($row['firstName'], $row['lastName'], $row['email'], $row['password']);
+                $user = new User($row['firstName'], $row['lastName'], $row['email'], $row['password'], $row['profilePicture']);
                 $users[] = $user;
             }
         } 
@@ -51,11 +51,42 @@
         return $result;
     }
 
+    function addSubscriber($email) {
+        global $conn;
+        
+        $sql = "INSERT INTO subscribers (`email`) VALUES ('" . $email . "')";
+	    $result = $conn->query($sql);
+
+        echo mysqli_error($conn);
+
+        return $result;
+    }
+
+    function getSubscribersEmail() {
+        global $conn;
+
+        $sql = "SELECT `email` FROM subscribers";
+        $result = $conn->query($sql);
+
+        $subscribers = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $subscribers[] = $row['email'];
+            }
+        } 
+        else {
+            echo $conn->error;
+        }
+
+        return $subscribers;
+    }
+
     // gets all the smartphones data from the database
     function getSmartphones() {
         global $conn;
 
-        $sql = "SELECT `brand`, `model`, `screen`, `os`, `chipset`, `GPU`, `RAM`, `storage`, `price`, `imageFileName` FROM tblsmartphone";
+        $sql = "SELECT `brand`, `model`, `screen`, `os`, `chipset`, `GPU`, `RAM`, `storage`, `price`, `imageFileName`, `releaseDate` FROM tblsmartphone";
         $result = $conn->query($sql);
 
         $smartphones = [];  // will be array of Smartphone objects
@@ -63,7 +94,7 @@
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 // creates Smartphone object from the result, then adds to the $smartphones array that will be returned
-                $smartphone = new Smartphone($row['brand'], $row['model'], $row['screen'], $row['os'], $row['chipset'], $row['GPU'], $row['RAM'], $row['storage'], $row['price'], $row['imageFileName']);
+                $smartphone = new Smartphone($row['brand'], $row['model'], $row['screen'], $row['os'], $row['chipset'], $row['GPU'], $row['RAM'], $row['storage'], $row['price'], $row['imageFileName'], $row['releaseDate']);
                 $smartphones[] = $smartphone;
             }
         } 
@@ -78,7 +109,7 @@
     function getLaptops() {
         global $conn;
 
-        $sql = "SELECT `brand`, `model`, `os`, `processor`, `RAM`, `storage`, `price`, `releaseDate` FROM tbllaptop";
+        $sql = "SELECT `brand`, `model`, `os`, `processor`, `RAM`, `storage`, `price`, `imageFileName`, `releaseDate` FROM tbllaptop";
         $result = $conn->query($sql);
 
         $laptops = [];  // will be array of Laptop objects
@@ -86,7 +117,7 @@
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 // creates Laptop object from the result, then adds to the $laptops array that will be returned
-                $laptop = new Laptop($row['brand'], $row['model'], $row['os'], $row['processor'], $row['RAM'], $row['storage'], $row['price'], $row['releaseDate']);
+                $laptop = new Laptop($row['brand'], $row['model'], $row['os'], $row['processor'], $row['RAM'], $row['storage'], $row['price'], $row['imageFileName'], $row['releaseDate']);
                 $laptops[] = $laptop;
             }
         } 
@@ -101,7 +132,7 @@
     function getTablets() {
         global $conn;
 
-        $sql = "SELECT `brand`, `model`, `screen`, `processor`, `RAM`, `storage`, `batteryLife`, `os`, `price` FROM tbltablet";
+        $sql = "SELECT `brand`, `model`, `screen`, `processor`, `RAM`, `storage`, `batteryLife`, `os`, `price`, `imageFileName`, `releaseDate` FROM tbltablet";
         $result = $conn->query($sql);
 
         $tablets = [];  // will be array of Tablet objects
@@ -109,7 +140,7 @@
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 // creates Tablet object from the result, then adds to the $tablets array that will be returned
-                $tablet = new Tablet($row['brand'], $row['model'], $row['screen'], $row['processor'], $row['RAM'], $row['storage'], $row['batteryLife'], $row['os'], $row['price']);
+                $tablet = new Tablet($row['brand'], $row['model'], $row['screen'], $row['processor'], $row['RAM'], $row['storage'], $row['batteryLife'], $row['os'], $row['price'], $row['imageFileName'], $row['releaseDate']);
                 $tablets[] = $tablet;
             }
         } 
@@ -124,7 +155,7 @@
     function createWishlist($email, $category, $model) {
         global $conn;
         
-        $sql = "INSERT INTO userWishlist (`email`, `category`, `model`) VALUES ('" . $email . "', '" . $category . "', '" . $model . "')";
+        $sql = "INSERT INTO wishlist (`email`, `category`, `model`) VALUES ('" . $email . "', '" . $category . "', '" . $model . "')";
 	    $result = $conn->query($sql);
 
         echo mysqli_error($conn);
@@ -136,7 +167,7 @@
     function getWishlistsByEmail($email) {
         global $conn;
 
-        $sql = "SELECT `email`, `category`, `model` FROM userwishlist WHERE email='" . $email . "'";
+        $sql = "SELECT `email`, `category`, `model` FROM wishlist WHERE email='" . $email . "'";
         $result = $conn->query($sql);
 
         $wishlists = [];    // will be array of Wishlist objects
@@ -159,11 +190,32 @@
     function deleteWishlist($email, $category, $model) {
         global $conn;
         
-        $sql = "DELETE FROM userWishlist WHERE email='" . $email . "'AND category='" . $category . "'AND model='" . $model . "'";
+        $sql = "DELETE FROM wishlist WHERE email='" . $email . "'AND category='" . $category . "'AND model='" . $model . "'";
 	    $result = $conn->query($sql);
 
         echo mysqli_error($conn);
 
         return $result; 
+    }
+
+    // update user information in database
+    function updateUserInfo($email, $firstName, $lastName, $newemail, $password) {
+        global $conn;
+    
+        $sql = "UPDATE user SET firstName = '$firstName', lastName = '$lastName', email = '$newemail', password = '$password' WHERE email = '$email'";
+        $result = $conn->query($sql);
+    
+        return $result;
+    }
+
+    // change profile picture
+    function updateProfilePicture($email, $profilePicture) {
+        global $conn;
+    
+        $sql = "UPDATE user SET profilePicture = '$profilePicture' WHERE email = '$email'";
+        $result = $conn->query($sql);
+
+        return $result;
+        
     }
 ?>

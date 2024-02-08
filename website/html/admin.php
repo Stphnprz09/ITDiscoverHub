@@ -3,6 +3,10 @@ include('../php_servers/admin_db_configuration.php');
 session_start();
 $error = array();
 
+if (isset($_SESSION['admin_username'])) {
+    header('Location: adminHome.php');
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];

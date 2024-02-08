@@ -48,6 +48,16 @@
         return $foundUser; 
     }
 
+    function subscribe($email) {
+        addSubscriber($email);
+    }
+
+    function getSubscribers() {
+        $subscribers = getSubscribersEmail();
+
+        return $subscribers;
+    }
+
     // gets a smartphone data by model
     function getSmartphoneByModel($model) {
         global $smartphones;    // accesses the global variable $smartphones
@@ -146,6 +156,26 @@
         return $foundTablets;
     }
 
+    function getLatestTechnologies() {
+        $smartphones = getSmartphones();
+        $laptops = getLaptops();
+        $tablets = getTablets();
+
+        usort($smartphones, 'compareCatalogItemsByDate');
+        usort($laptops, 'compareCatalogItemsByDate');
+        usort($tablets, 'compareCatalogItemsByDate');
+
+        $latestTechnologies = array("smartphones" => [], "laptops" => [], "tablets" => []);
+
+        for ($i = 0; $i < 5; $i++) {
+            $latestTechnologies["smartphones"][] = $smartphones[$i];
+            $latestTechnologies["laptops"][] = $laptops[$i];
+            $latestTechnologies["tablets"][] = $tablets[$i];
+        }
+
+        return $latestTechnologies;
+    }
+
     // createWishlist() function from the db_service.php is used to add a new wishlist data to the database
     function addWishlist($email, $category, $model) {
         $result = createWishlist($email, $category, $model);
@@ -186,4 +216,13 @@
     function compareCatalogItemsByDate($catalogItem1, $catalogItem2) {
         return $catalogItem2->releaseDate <=> $catalogItem1->releaseDate;
     }
+
+    // update user's profile 
+    function editProfile($email, $firstName, $lastName, $newemail, $password, $profilePicture) {
+        $resultUserInfo = updateUserInfo($email, $firstName, $lastName, $newemail, $password);
+        $resultProfilePic = updateProfilePicture($email, $profilePicture);
+    
+        return $resultUserInfo && $resultProfilePic;
+    }
+
 ?>

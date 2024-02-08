@@ -118,6 +118,28 @@ function getProduct(
   )
     .then((response) => response.json())
     .then((data) => {
+      if (category == "smartphones") {
+        document
+          .getElementById("img-col-" + column)
+          .setAttribute(
+            "src",
+            `../images/catalog/smartphones/${data["imageFileName"]}`
+          );
+      } else if (category == "laptops") {
+        document
+          .getElementById("img-col-" + column)
+          .setAttribute(
+            "src",
+            `../images/catalog/laptops/${data["imageFileName"]}`
+          );
+      } else if (category == "tablets") {
+        document
+          .getElementById("img-col-" + column)
+          .setAttribute(
+            "src",
+            `../images/catalog/tablets/${data["imageFileName"]}`
+          );
+      }
       document.getElementById("brand-col-" + column).innerText = data["brand"];
       document.getElementById("model-col-" + column).innerText = data["model"];
       document.getElementById("os-col-" + column).innerText = data["os"];
